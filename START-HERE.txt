@@ -1,0 +1,58 @@
+உண்மை முகம் – Cloudflare Pages Direct Upload
+===============================================
+
+இந்த ZIP-ல் உள்ள கோப்புகள்:
+- index.html: வாசகர் தளம் + Reader/Admin தேர்வு
+- admin.html: கடவுச்சொல் பாதுகாப்புள்ள Admin
+- _worker.js: API, login session, KV மற்றும் R2 சேமிப்பு
+- மீதமுள்ள JSON, icons, img, epaper: பழைய தள உள்ளடக்கங்கள்
+
+முக்கியம்: ZIP-ஐ upload செய்தாலே dynamic admin சேமிப்பு இயங்காது. Cloudflare-ல் கீழே உள்ள இணைப்புகளை ஒருமுறை அமைக்க வேண்டும்.
+
+படி 1 – Pages Direct Upload
+1. Cloudflare Dashboard > Workers & Pages > Create > Pages.
+2. Direct Upload / Upload assets தேர்வு செய்யவும்.
+3. Project name அமைத்து, இந்த ZIP-ஐ Extract செய்த பின் உள்ள கோப்புறையை (அல்லது ZIP-ஐ) upload செய்யவும்.
+4. Deploy செய்யவும்.
+குறிப்பு: _worker.js root-ல் இருக்க வேண்டும். functions/ கோப்புறை தேவையில்லை.
+
+படி 2 – KV உருவாக்கி இணைக்கவும்
+1. Cloudflare Dashboard > Storage & databases > Workers KV > Create namespace.
+2. பெயர்: unmai-mugam-data (பெயர் வேறாக இருந்தாலும் பரவாயில்லை).
+3. Workers & Pages > உங்கள் Pages project > Settings > Bindings > Add > KV namespace.
+4. Variable name: SITE_DATA
+5. உருவாக்கிய KV namespace தேர்வு செய்து Save.
+6. Production மற்றும் Preview இரண்டிலும் அமைக்க வேண்டுமானால் இரண்டிலும் இணைக்கவும்.
+
+படி 3 – R2 உருவாக்கி இணைக்கவும்
+1. Cloudflare Dashboard > R2 Object Storage > Create bucket.
+2. பெயர்: unmai-mugam-media
+3. Pages project > Settings > Bindings > Add > R2 bucket.
+4. Variable name: MEDIA
+5. Bucket: unmai-mugam-media தேர்வு செய்து Save.
+
+படி 4 – பாதுகாப்பு Secrets
+Pages project > Settings > Variables and Secrets (அல்லது Functions > Environment variables):
+- ADMIN_PASSWORD = உங்கள் புதிய வலுவான Admin கடவுச்சொல்
+- SESSION_SECRET = நீளமான, சீரற்ற ரகசியச் சொல் (குறைந்தது 32 எழுத்துகள்)
+இரண்டையும் Secret ஆகச் சேமிக்கவும். பழைய எளிய 2468-ஐ நிரந்தர கடவுச்சொல்லாகப் பயன்படுத்த வேண்டாம்.
+பிறகு புதிய deployment / Redeploy செய்யவும்.
+
+படி 5 – சோதனை
+1. தள முகவரியைத் திறக்கவும். Reader / Admin தேர்வு வரும்.
+2. Admin தேர்வு செய்து கடவுச்சொல் மூலம் உள்நுழையவும்.
+3. ஒரு சோதனைச் செய்தியைச் சேர்த்து “செய்திகளைச் சேமித்து வெளியிடு” அழுத்தவும்.
+4. மற்றொரு browser / incognito-வில் வாசகர் தளத்தைத் திறந்து செய்தி தெரிகிறதா பார்க்கவும்.
+5. புகைப்படம் மற்றும் PDF பதிவேற்றத்தையும் தனியாகச் சோதிக்கவும்.
+
+Admin URL: /admin.html
+API மற்றும் நிரந்தரச் சேமிப்பு SITE_DATA KV + MEDIA R2 மூலம் இயங்கும்.
+
+பாதுகாப்பு:
+- _worker.js-ல் கடவுச்சொல் hard-code செய்யப்படவில்லை.
+- Admin login HttpOnly, Secure cookie பயன்படுத்துகிறது; 8 மணி நேரத்தில் காலாவதியாகும்.
+- Secrets-ஐ யாரிடமும் பகிர வேண்டாம்.
+
+குறிப்பு:
+Cloudflare Dashboard-இன் UI பெயர்கள் கணக்கு/புதிய UI அடிப்படையில் சிறிது மாறலாம்.
+KV/R2 bindings அமைக்காமல் API save/upload இயங்காது; static வாசகர் தளம் மட்டும் திறக்கலாம்.
