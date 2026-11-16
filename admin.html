@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>அட்மின் – உண்மை முகம்</title>
+<style>
+:root{--bg:#f2f6f7;--s:#fff;--ink:#14262b;--mut:#5d7176;--line:#d5e0e3;--brand:#0b1f4d;--acc:#d71920}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans Tamil",system-ui,sans-serif;line-height:1.6}
+main{max-width:760px;margin:auto;padding:16px}
+h1{color:var(--acc);margin:6px 0}
+.note{background:#fff7e0;border:1px solid #e0c36a;border-radius:10px;padding:10px 14px;font-size:.9rem;margin:10px 0}
+.tabs{display:flex;gap:8px;margin:12px 0;flex-wrap:wrap}
+.tabs button{flex:1;min-width:100px;padding:10px;border:1px solid var(--line);background:var(--s);border-radius:10px;font:inherit;cursor:pointer}
+.tabs button[aria-pressed=true]{background:var(--brand);color:#fff}
+.box{background:var(--s);border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:14px}
+label{display:grid;gap:4px;font-size:.85rem;color:var(--mut);margin-bottom:10px}
+label.c{display:flex;align-items:center;gap:8px;color:var(--ink)}
+input,textarea{font:inherit;padding:9px 12px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);width:100%}
+input[type=checkbox]{width:18px;height:18px}
+button.p{background:var(--acc);color:#fff;border:0;border-radius:10px;padding:12px;font:inherit;font-weight:600;width:100%;margin-top:6px;cursor:pointer}
+button.s{border:1px solid var(--line);background:none;border-radius:8px;padding:4px 10px;font:inherit;color:var(--acc);cursor:pointer}
+.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding:8px 0;border-bottom:1px solid var(--line);font-size:.9rem}
+.row span{flex:1;min-width:150px}
+.msg{font-size:.85rem;color:var(--mut);margin-top:8px;font-weight:600}
+.top-links{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:8px;align-items:center}
+.top-links a{color:var(--brand);font-weight:600;text-decoration:none}
+[hidden]{display:none!important}
+</style>
+</head>
+<body><main>
+<h1>✍ அட்மின் – உண்மை முகம்</h1>
+<div class="top-links">
+  <a href="/">← வாசகர் தளத்திற்குச் செல்ல</a>
+  <a href="/?preview=1" target="_blank">👁 முன்னோட்டம் பார் (Preview)</a>
+</div>
+<div class="note"><b>Vercel Admin:</b> இங்கே செய்திகள் மற்றும் படங்களைச் சேர்த்து <b>சேமி (பதிவிறக்கு)</b> பொத்தானை அழுத்தினால் புதிய JSON ஃபைல் பதிவிறக்கப்படும். அதை உங்கள் ஃபோல்டரில் மாற்றி Vercel-இல் அப்லோட் செய்தால் எல்லா வாசகர்களுக்கும் தெரியும்.</div>
+<div id="loginBox" class="box">
+  <h2>Admin Login</h2>
+  <label>கடவுச்சொல் (Default: 2026)<input id="adminPass" type="password" inputmode="numeric" autocomplete="current-password" placeholder="2026"></label>
+  <button class="p" id="loginBtn">உள்நுழை</button>
+  <div class="msg" id="loginMsg"></div>
+</div>
+<div id="adminApp" hidden><button class="p" id="logoutBtn" style="background:#0b1f4d">வெளியேறு</button>
+<div class="tabs"><button id="t1" aria-pressed="true">செய்திகள்</button><button id="t2" aria-pressed="false">இ-பேப்பர்</button><button id="t3" aria-pressed="false">அமைப்புகள்</button><button id="t4" aria-pressed="false">ஓடும் பட்டை</button><button id="t5" aria-pressed="false">விளம்பரங்கள்</button><button id="t6" aria-pressed="false">வாக்கெடுப்பு</button><button id="t7" aria-pressed="false">பெரிய கட்டம்</button></div>
+
+<section id="p1">
+<div class="box"><h2>புதிய செய்தி</h2>
+<label>பிரிவு<input id="fc" list="cl" maxlength="30" placeholder="எ.கா. தமிழ்நாடு"></label><datalist id="cl"></datalist>
+<label>தலைப்பு<input id="fh" maxlength="160"></label>
+<label>நிருபர் / செய்தியாளர் பெயர்<input id="fr" maxlength="60"></label>
+<label>சுருக்கம்<input id="fs" maxlength="200"></label>
+<label>வாசிப்பு நேரம்<input id="ft" maxlength="20" placeholder="3 நிமிடம்"></label>
+<label>படம் (விருப்பம்)<input id="ff" type="file" accept="image/*"></label>
+<label class="c"><input id="fk" type="checkbox">ஓடும் முக்கியச் செய்திப் பட்டையில் காட்டு</label>
+<label class="c"><input id="fz" type="checkbox">முதன்மைச் செய்தியாக வை</label>
+<label>முழுச் செய்தி<textarea id="fb" rows="8"></textarea></label>
+<button class="p" id="add">செய்தியைச் சேர்</button><div class="msg" id="m1"></div></div>
+<div class="box"><h2>தற்போதைய செய்திகள்</h2><div id="list"></div>
+<button class="p" id="dlNews">⬇ news.json பதிவிறக்கு (சேமி)</button><div class="msg" id="imgs"></div></div>
+</section>
+
+<section id="p2" hidden>
+<div class="box"><h2>இ-பேப்பர் பதிப்பு</h2>
+<label>தேதி<input id="ed" type="date"></label>
+<label>தலைப்பு<input id="en" maxlength="80" placeholder="சென்னைப் பதிப்பு"></label>
+<label>PDF கோப்பு<input id="ep" type="file" accept="application/pdf"></label>
+<button class="p" id="addEd">பதிப்பைச் சேர்</button><div class="msg" id="m2"></div></div>
+<div class="box"><h2>தற்போதைய பதிப்புகள்</h2><div id="elist"></div>
+<button class="p" id="dlEd">⬇ editions.json பதிவிறக்கு</button>
+<div class="msg">PDF கோப்பை நீங்களே <b>epaper</b> கோப்புறையில் அதே பெயருடன் வைக்கவும்.</div></div>
+</section>
+
+<section id="p3" hidden>
+<div class="box"><h2>தள அமைப்புகள்</h2>
+<label>WhatsApp எண் (நாட்டுக் குறியீட்டுடன், எ.கா. 919876543210)<input id="s_wa" inputmode="numeric"></label>
+<label>WhatsApp சேனல் இணைப்பு<input id="s_ch" placeholder="https://"></label>
+<label>Facebook இணைப்பு<input id="s_fb" placeholder="https://"></label>
+<label>YouTube இணைப்பு<input id="s_yt" placeholder="https://"></label>
+<label>Instagram இணைப்பு<input id="s_ig" placeholder="https://"></label>
+<label>மின்னஞ்சல்<input id="s_em" type="email"></label>
+<label>ஹிஜ்ரி தேதி சரிசெய்தல் (நாட்கள்: -2 முதல் 2; பிறை அறிவிப்புக்கேற்ப)<input id="s_ho" type="number" min="-2" max="2" step="1" placeholder="0"></label>
+<label>எங்களைப் பற்றி<textarea id="s_ab" rows="5" maxlength="1500"></textarea></label>
+<button class="p" id="dlSet">⬇ settings.json பதிவிறக்கு</button><div class="msg" id="m3"></div></div>
+<div class="box"><h2>இன்றைய நல்ல நேரம் / பஞ்சாங்கம்</h2>
+<label>இன்றைய தேதிக்கு மட்டும் காட்டப்படும்<textarea id="tdIn" rows="3" maxlength="500"></textarea></label>
+<button class="p" id="dlToday">⬇ today.json பதிவிறக்கு</button><div class="msg">பதிவிறக்கிய today.json ஐத் தள கோப்புறையில் மாற்றிப் பதிவேற்றவும்.</div></div>
+</section>
+<section id="p4" hidden>
+<div class="box"><h2>ஓடும் செய்திப் பட்டை</h2>
+<label>பட்டையில் ஓட வேண்டிய வாசகம் (நீங்கள் எழுதியபடியே ஓடும்)<input id="tkIn" maxlength="200" placeholder="எ.கா. அவசரம்: நாளை பள்ளிகளுக்கு விடுமுறை"></label>
+<button class="p" id="tkAdd">பட்டையில் சேர்</button><div class="msg" id="m4"></div></div>
+<div class="box"><h2>தற்போது ஓடுபவை</h2><div id="tkList"></div>
+<button class="p" id="dlTk">⬇ ticker.json பதிவிறக்கு</button></div>
+</section>
+<section id="p5" hidden>
+<div class="box"><h2>புதிய விளம்பரம்</h2>
+<label>வகை<input id="ac" list="acl" maxlength="30" placeholder="வேலைவாய்ப்பு"></label><datalist id="acl"><option value="வேலைவாய்ப்பு"><option value="வாடகை / விற்பனை"><option value="திருமணம்"><option value="இரங்கல்"><option value="மற்றவை"></datalist>
+<label>விளம்பர வாசகம்<textarea id="at" rows="4" maxlength="400"></textarea></label>
+<label>தொடர்பு எண்<input id="aph" inputmode="tel" maxlength="15"></label>
+<label>ஊர் / இடம்<input id="aloc" maxlength="60"></label>
+<label>எத்தனை நாட்கள் காட்ட வேண்டும்<input id="adays" type="number" min="1" max="365" value="15"></label>
+<button class="p" id="addAd">விளம்பரத்தைச் சேர்</button><div class="msg" id="m5"></div></div>
+<div class="box"><h2>தற்போதைய விளம்பரங்கள்</h2><div id="adlist"></div>
+<button class="p" id="dlAds">⬇ ads.json பதிவிறக்கு</button><div class="msg">பதிவிறக்கிய ads.json ஐ தள கோப்புறையில் மாற்றிப் பதிவேற்றவும். காலம் முடிந்த விளம்பரங்கள் தளத்தில் தானாக மறையும்.</div></div>
+</section>
+<section id="p6" hidden>
+<div class="box"><h2>வாக்கெடுப்பு</h2>
+<label>கேள்வி<input id="pq" maxlength="160"></label>
+<label>விருப்பம் 1<input id="po1" maxlength="60"></label><label>இதுவரை வாக்குகள்<input id="pv1" type="number" min="0" value="0"></label>
+<label>விருப்பம் 2<input id="po2" maxlength="60"></label><label>இதுவரை வாக்குகள்<input id="pv2" type="number" min="0" value="0"></label>
+<label>விருப்பம் 3 (விருப்பம்)<input id="po3" maxlength="60"></label><label>இதுவரை வாக்குகள்<input id="pv3" type="number" min="0" value="0"></label>
+<label>விருப்பம் 4 (விருப்பம்)<input id="po4" maxlength="60"></label><label>இதுவரை வாக்குகள்<input id="pv4" type="number" min="0" value="0"></label>
+<label class="c"><input id="pact" type="checkbox" checked>தளத்தில் காட்டு</label>
+<button class="p" id="dlPoll">⬇ poll.json பதிவிறக்கு</button><div class="msg" id="m6"></div></div>
+</section>
+<section id="p7" hidden>
+<div class="box"><h2>முகப்புப் பெரிய விளம்பரக் கட்டம்</h2>
+<label>விளம்பரப் படம் (அகலமான படம் சிறந்தது, சுமார் 1200×525)<input id="bnF" type="file" accept="image/*"></label>
+<label>படத்தின் மேல் வாசகம் (விருப்பம்)<input id="bnT" maxlength="80"></label>
+<label>தொடுக்கும் இணைப்பு (விருப்பம், https://)<input id="bnU" placeholder="https://"></label>
+<label>எத்தனை நாட்கள் காட்ட வேண்டும்<input id="bnD" type="number" min="1" max="365" value="15"></label>
+<button class="p" id="bnAdd">விளம்பரத்தைச் சேர்</button><div class="msg" id="m7"></div></div>
+<div class="box"><h2>தற்போதைய கட்ட விளம்பரங்கள்</h2><div id="bnList"></div>
+<button class="p" id="dlBN">⬇ banners.json பதிவிறக்கு</button><div class="msg" id="bnImgs"></div>
+<div class="msg">படங்களைப் பதிவிறக்கி தள கோப்புறையின் <b>img</b> உள்ளே வைக்கவும்; banners.json ஐ மாற்றிப் பதிவேற்றவும்.</div></div>
+</section>
+</div></main>
+<script>
+const ADMIN_PASS = "2026";
+const $=id=>document.getElementById(id);
+
+const getJ=async f=>{
+  try{const p=localStorage.getItem("um_preview_"+f);if(p)return JSON.parse(p)}catch(e){}
+  try{const r=await fetch("/"+f+"?v="+Date.now(),{cache:"no-store"});return r.ok?await r.json():null}catch(e){return null}
+};
+
+function dl(name,blob){
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(blob);
+  a.download=name;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  setTimeout(()=>URL.revokeObjectURL(a.href),4000);
+}
+
+const dlJson=(name,data)=>{
+  try{localStorage.setItem("um_preview_"+name,JSON.stringify(data))}catch(e){}
+  const blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json;charset=utf-8"});
+  dl(name,blob);
+  if(name==="news.json"){Object.keys(pending).forEach(k=>dl(k,pending[k]));pending={};drawNews()}
+  if(name==="banners.json"){Object.keys(pendB).forEach(k=>dl(k,pendB[k]));pendB={};drawBN()}
+  const target={"news.json":"m1","editions.json":"m2","settings.json":"m3","ticker.json":"m4","ads.json":"m5","poll.json":"m6","banners.json":"m7"}[name];
+  if(target&&$(target))$(target).textContent="✔ "+name+" பதிவிறக்கப்பட்டது! இதை உங்கள் ஃபோல்டரில் மாற்றி Vercel-இல் அப்லோட் செய்யவும்.";
+};
+
+$("logoutBtn").onclick=()=>{sessionStorage.removeItem("um_vercel_admin");location.reload()};
+function checkAdmin(){
+  const ok=sessionStorage.getItem("um_vercel_admin")==="1";
+  $("loginBox").hidden=ok;
+  $("adminApp").hidden=!ok;
+  if(ok)loadAdminData();
+}
+async function loadAdminData(){
+  TICK=(await getJ("ticker.json"))||[];drawTick();
+  BN=(await getJ("banners.json"))||[];drawBN();
+  ADS=(await getJ("ads.json"))||[];drawAdsA();
+  POLL=await getJ("poll.json");fillPoll();
+  NEWS=(await getJ("news.json"))||[];
+  EDS=(await getJ("editions.json"))||[];
+  CFG=(await getJ("settings.json"))||{};fillCfg();
+  const td=await getJ("today.json");if(td&&td.text)$("tdIn").value=td.text;
+  drawNews();drawEds();
+}
+function doLogin(){
+  if($("adminPass").value.trim()===ADMIN_PASS){
+    sessionStorage.setItem("um_vercel_admin","1");
+    $("loginMsg").textContent="உள்நுழைந்துவிட்டீர்கள்.";
+    checkAdmin();
+  }else{
+    $("loginMsg").textContent="கடவுச்சொல் தவறு.";
+  }
+}
+$("loginBtn").onclick=doLogin;
+$("adminPass").onkeydown=e=>{if(e.key==="Enter")doLogin()};
+
+let NEWS=[],EDS=[],CFG={},pending={};
+const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,5);
+
+function shrink(file){return new Promise((res,rej)=>{const u=URL.createObjectURL(file),im=new Image();im.onload=()=>{const k=Math.min(1,1200/Math.max(im.width,im.height)),c=document.createElement("canvas");c.width=Math.round(im.width*k);c.height=Math.round(im.height*k);c.getContext("2d").drawImage(im,0,0,c.width,c.height);URL.revokeObjectURL(u);c.toBlob(b=>b?res(b):rej(),"image/jpeg",.82)};im.onerror=rej;im.src=u})}
+["t1","t2","t3","t4","t5","t6","t7"].forEach((t,i)=>$(t).onclick=()=>{["t1","t2","t3","t4","t5","t6","t7"].forEach((x,j)=>{$(x).setAttribute("aria-pressed",i===j);$("p"+(j+1)).hidden=i!==j})});
+function drawNews(){
+  $("cl").innerHTML=[...new Set(["கோவை","காந்திபுரம்","ஆர்.எஸ்.புரம்","உக்கடம்","பீளமேடு","சிங்காநல்லூர்","சரவணம்பட்டி","வடவள்ளி","கணபதி","துடியலூர்","விளங்குறிச்சி","சூலூர்","போக்குவரத்து","காவல்","கல்வி","விளையாட்டு","வணிகம்","வேலைவாய்ப்பு","தமிழ்நாடு","இந்தியா",...NEWS.map(n=>n.c)])].map(c=>`<option value="${c.replace(/"/g,"&quot;")}">`).join("");
+  const box=$("list");box.innerHTML="";
+  NEWS.slice().sort((a,b)=>(b.ts||0)-(a.ts||0)).forEach(n=>{
+    const r=document.createElement("div");r.className="row";const s=document.createElement("span");s.textContent=n.h;
+    const mk=(t,f)=>{const b=document.createElement("button");b.className="s";b.textContent=t;b.onclick=f;return b};
+    r.append(s,mk((n.brk?"✔ ":"")+"பட்டை",()=>{n.brk=!n.brk;drawNews()}),
+      mk((n.top?"✔ ":"")+"முதன்மை",()=>{if(!n.top)NEWS.forEach(o=>o.top=false);n.top=!n.top;drawNews()}),
+      mk("நீக்கு",()=>{if(confirm("நீக்கவா?")){NEWS=NEWS.filter(o=>o!==n);drawNews()}}));
+    box.appendChild(r)});
+  const keys=Object.keys(pending);
+  $("imgs").innerHTML="";
+  if(keys.length){const t=document.createElement("div");t.textContent="சேமிக்கும் போது இந்தப் படங்களும் பதிவிறக்கப்படும் (இவற்றை img ஃபோல்டரில் வைக்கவும்):";$("imgs").appendChild(t);
+    keys.forEach(k=>{const b=document.createElement("button");b.className="s";b.textContent="⬇ "+k;b.onclick=()=>dl(k,pending[k]);$("imgs").appendChild(b)})}
+}
+function drawEds(){
+  const box=$("elist");box.innerHTML="";
+  EDS.slice().sort((a,b)=>String(b.d).localeCompare(String(a.d))).forEach(e=>{
+    const r=document.createElement("div");r.className="row";const s=document.createElement("span");s.textContent=e.d+" – "+e.n+" ("+e.file+")";
+    const b=document.createElement("button");b.className="s";b.textContent="நீக்கு";b.onclick=()=>{if(confirm("நீக்கவா?")){EDS=EDS.filter(o=>o!==e);drawEds()}};r.append(s,b);box.appendChild(r)});
+}
+$("add").onclick=async()=>{
+  const c=$("fc").value.trim(),h=$("fh").value.trim(),b=$("fb").value.trim();
+  if(!c||!h||!b){$("m1").textContent="பிரிவு, தலைப்பு, முழுச் செய்தி மூன்றும் தேவை.";return}
+  const id=uid(),n={id,c,h,s:$("fs").value.trim()||b.slice(0,90),t:$("ft").value.trim()||"3 நிமிடம்",b,r:$("fr").value.trim(),brk:$("fk").checked,top:$("fz").checked,ts:Date.now()};
+  const f=$("ff").files[0];
+  if(f){try{const blob=await shrink(f);n.img=id+".jpg";pending[n.img]=blob}catch(e){$("m1").textContent="படத்தைப் படிக்க முடியவில்லை.";return}}
+  if(n.top)NEWS.forEach(o=>o.top=false);
+  NEWS.push(n);["fc","fh","fr","fs","ft","fb","ff"].forEach(i=>$(i).value="");$("fk").checked=false;$("fz").checked=false;
+  try{localStorage.setItem("um_preview_news.json",JSON.stringify(NEWS))}catch(e){}
+  $("m1").textContent="✔ செய்தி சேர்க்கப்பட்டது. கீழே உள்ள 'news.json பதிவிறக்கு' பொத்தானை அழுத்தவும்.";drawNews();
+};
+$("dlNews").onclick=()=>dlJson("news.json",NEWS);
+$("addEd").onclick=()=>{
+  const d=$("ed").value,f=$("ep").files[0];
+  if(!d||!f){$("m2").textContent="தேதி மற்றும் PDF தேவை.";return}
+  const file=f.name.replace(/[^\w.-]/g,"_");
+  if(!/\.pdf$/i.test(file)){$("m2").textContent="PDF கோப்பு மட்டும்.";return}
+  EDS.push({id:uid(),d,n:$("en").value.trim()||"இ-பேப்பர்",file});
+  $("ed").value="";$("en").value="";$("ep").value="";
+  $("m2").textContent="✔ சேர்க்கப்பட்டது. கீழே editions.json பதிவிறக்கி, PDF கோப்பை epaper ஃபோல்டரில் வைக்கவும்.";drawEds();
+};
+$("dlEd").onclick=()=>dlJson("editions.json",EDS);
+function fillCfg(){[["wa","s_wa"],["ch","s_ch"],["fb","s_fb"],["yt","s_yt"],["ig","s_ig"],["em","s_em"],["about","s_ab"],["ho","s_ho"]].forEach(([k,i])=>$(i).value=CFG[k]||"")}
+$("dlToday").onclick=()=>{const n=new Date(),u=new Date(n.getTime()+n.getTimezoneOffset()*60000+5.5*3600000),k=u.getFullYear()+"-"+String(u.getMonth()+1).padStart(2,"0")+"-"+String(u.getDate()).padStart(2,"0");dlJson("today.json",{d:k,text:$("tdIn").value.trim()})};
+$("dlSet").onclick=()=>{
+  const g=i=>$(i).value.trim(),d={wa:g("s_wa").replace(/\D/g,""),ch:g("s_ch"),fb:g("s_fb"),yt:g("s_yt"),ig:g("s_ig"),em:g("s_em"),about:g("s_ab"),ho:Math.max(-2,Math.min(2,parseInt(g("s_ho"))||0))};
+  for(const k of["ch","fb","yt","ig"])if(d[k]&&!/^https:\/\//.test(d[k])){$("m3").textContent="இணைப்பு https:// என்று தொடங்க வேண்டும்.";return}
+  dlJson("settings.json",d);
+};
+let BN=[],pendB={};
+const expIn=d=>{const n=new Date(),u=new Date(n.getTime()+n.getTimezoneOffset()*60000+5.5*3600000+d*86400000);return u.getFullYear()+"-"+String(u.getMonth()+1).padStart(2,"0")+"-"+String(u.getDate()).padStart(2,"0")};
+function drawBN(){
+  const box=$("bnList");box.innerHTML="";
+  if(!BN.length)box.innerHTML='<div class="msg">இன்னும் எதுவும் இல்லை.</div>';
+  BN.forEach(x=>{const r=document.createElement("div");r.className="row";const s=document.createElement("span");s.textContent=(x.t||"(வாசகம் இல்லை)")+(x.exp?" – வரை "+x.exp:"");const b=document.createElement("button");b.className="s";b.textContent="நீக்கு";b.onclick=()=>{if(confirm("நீக்கவா?")){BN=BN.filter(o=>o!==x);drawBN()}};r.append(s,b);box.appendChild(r)});
+  const im=$("bnImgs");im.innerHTML="";const ks=Object.keys(pendB);
+  if(ks.length){const t=document.createElement("div");t.textContent="சேமிக்கும் போது இந்தப் படங்களும் பதிவிறக்கப்படும் (img ஃபோல்டரில் வைக்கவும்):";im.appendChild(t);ks.forEach(k=>{const b=document.createElement("button");b.className="s";b.textContent="⬇ "+k;b.onclick=()=>dl(k,pendB[k]);im.appendChild(b)})}
+}
+$("bnAdd").onclick=async()=>{
+  const f=$("bnF").files[0];if(!f){$("m7").textContent="படத்தைத் தேர்ந்தடுக்கவும்.";return}
+  const u=$("bnU").value.trim();if(u&&!/^https:\/\//.test(u)){$("m7").textContent="இணைப்பு https:// என்று தொடங்க வேண்டும்.";return}
+  try{const blob=await shrink(f),id=uid(),name=id+".jpg";pendB[name]=blob;
+    BN.push({id,img:name,t:$("bnT").value.trim(),url:u,exp:expIn(Math.max(1,Math.min(365,parseInt($("bnD").value)||15))),ts:Date.now()});
+    ["bnF","bnT","bnU"].forEach(i=>$(i).value="");$("m7").textContent="✔ படம் சேர்க்கப்பட்டது. கீழே உள்ள 'banners.json பதிவிறக்கு' பொத்தானை அழுத்தவும்.";drawBN()}
+  catch(e){$("m7").textContent="படத்தைப் படிக்க முடியவில்லை."}
+};
+$("dlBN").onclick=()=>dlJson("banners.json",BN);
+let ADS=[],POLL=null;
+function drawAdsA(){
+  const box=$("adlist");box.innerHTML="";
+  if(!ADS.length){box.innerHTML='<div class="msg">இன்னும் எதுவும் இல்லை.</div>';return}
+  ADS.slice().sort((a,b)=>(b.ts||0)-(a.ts||0)).forEach(a=>{const r=document.createElement("div");r.className="row";const s=document.createElement("span");s.textContent="["+a.c+"] "+a.t.slice(0,60)+(a.exp?" – வரை "+a.exp:"");const b=document.createElement("button");b.className="s";b.textContent="நீக்கு";b.onclick=()=>{if(confirm("நீக்கவா?")){ADS=ADS.filter(o=>o!==a);drawAdsA()}};r.append(s,b);box.appendChild(r)});
+}
+$("addAd").onclick=()=>{
+  const c=$("ac").value.trim(),t=$("at").value.trim();
+  if(!c||!t){$("m5").textContent="வகை, வாசகம் தேவை.";return}
+  const n=new Date(),u=new Date(n.getTime()+n.getTimezoneOffset()*60000+5.5*3600000),days=Math.max(1,Math.min(365,parseInt($("adays").value)||15)),e=new Date(u.getTime()+days*86400000);
+  const exp=e.getFullYear()+"-"+String(e.getMonth()+1).padStart(2,"0")+"-"+String(e.getDate()).padStart(2,"0");
+  ADS.push({id:uid(),c,t,ph:$("aph").value.trim(),loc:$("aloc").value.trim(),exp,ts:Date.now()});
+  ["ac","at","aph","aloc"].forEach(i=>$(i).value="");$("m5").textContent="✔ சேர்க்கப்பட்டது. கீழே ads.json ஐப் பதிவிறக்கவும்.";drawAdsA();
+};
+$("dlAds").onclick=()=>dlJson("ads.json",ADS);
+function fillPoll(){if(!POLL)return;$("pq").value=POLL.q||"";(POLL.opts||[]).slice(0,4).forEach((o,i)=>{$("po"+(i+1)).value=o.t||"";$("pv"+(i+1)).value=o.v||0});$("pact").checked=POLL.active!==false}
+$("dlPoll").onclick=()=>{
+  const q=$("pq").value.trim(),opts=[1,2,3,4].map(i=>({t:$("po"+i).value.trim(),v:parseInt($("pv"+i).value)||0})).filter(o=>o.t);
+  if(!q||opts.length<2){$("m6").textContent="கேள்வியும் குறைந்தது 2 விருப்பங்களும் தேவை.";return}
+  const same=POLL&&POLL.q===q;
+  dlJson("poll.json",{id:same?POLL.id:uid(),q,active:$("pact").checked,opts});
+};
+let TICK=[];
+function drawTick(){
+  const box=$("tkList");box.innerHTML="";
+  if(!TICK.length){box.innerHTML='<div class="msg">இன்னும் எதுவும் இல்லை.</div>';return}
+  TICK.slice().sort((a,b)=>(b.ts||0)-(a.ts||0)).forEach(x=>{const r=document.createElement("div");r.className="row";const s=document.createElement("span");s.textContent=x.t;const b=document.createElement("button");b.className="s";b.textContent="நீக்கு";b.onclick=()=>{TICK=TICK.filter(o=>o!==x);drawTick()};r.append(s,b);box.appendChild(r)});
+}
+$("tkAdd").onclick=()=>{const t=$("tkIn").value.trim();if(!t){$("m4").textContent="வாசகத்தை எழுதவும்.";return}TICK.push({id:uid(),t,ts:Date.now()});$("tkIn").value="";$("m4").textContent="✔ சேர்க்கப்பட்டது. கீழே ticker.json ஐப் பதிவிறக்கவும்.";drawTick()};
+$("dlTk").onclick=()=>dlJson("ticker.json",TICK);
+checkAdmin();
+</script>
+</body></html>
