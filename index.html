@@ -307,10 +307,10 @@ footer{background:var(--bar)}
 <body>
 <div id="roleGate" style="position:fixed;inset:0;z-index:9999;background:#0b1f4d;color:white;display:flex;align-items:center;justify-content:center;padding:24px;text-align:center">
  <div style="max-width:360px;width:100%"><h1 style="font-size:2rem">உண்மை முகம்</h1><p>உண்மையின் குரல்</p>
- <button id="readerRole" style="display:block;width:100%;padding:15px;margin:18px 0;border:0;border-radius:12px;font:inherit;font-weight:bold">வாசகர் பகுதி</button>
- <button id="adminRole" style="display:block;width:100%;padding:15px;border:1px solid white;background:transparent;color:white;border-radius:12px;font:inherit">அட்மின் பகுதி</button></div></div>
+ <button id="readerRole" style="display:block;width:100%;padding:15px;margin:18px 0;border:0;border-radius:12px;background:#ffffff;color:#0b1f4d;font:inherit;font-weight:700;cursor:pointer">வாசகர் பகுதி</button>
+ <button id="adminRole" style="display:block;width:100%;padding:15px;border:1px solid white;background:transparent;color:#ffffff;border-radius:12px;font:inherit;font-weight:600;cursor:pointer">அட்மின் பகுதி</button></div></div>
 <script>
-(()=>{const g=document.getElementById('roleGate');document.getElementById('readerRole').onclick=()=>{g.remove();sessionStorage.setItem('um_role','reader')};document.getElementById('adminRole').onclick=()=>location.href='admin.html';if(sessionStorage.getItem('um_role')==='reader')g.remove()})();
+(()=>{const g=document.getElementById('roleGate');document.getElementById('readerRole').onclick=()=>{g.remove();sessionStorage.setItem('um_role','reader')};document.getElementById('adminRole').onclick=()=>location.href='admin.html';if(sessionStorage.getItem('um_role')==='reader'||location.search.includes('preview=1'))g.remove()})();
 </script>
 
 <header>
@@ -397,7 +397,8 @@ try{saved=new Set(JSON.parse(localStorage.getItem("saved")||"[]"))}catch(e){}
 const tickClock=()=>{const d=new Date();$("date").textContent=d.toLocaleDateString("ta-IN",{weekday:"long",year:"numeric",month:"long",day:"numeric"})+" • "+d.toLocaleTimeString("ta-IN",{hour:"2-digit",minute:"2-digit",second:"2-digit",hour12:true})};
 tickClock();setInterval(tickClock,1000);
 const persist=()=>{try{localStorage.setItem("saved",JSON.stringify([...saved]))}catch(e){}};
-const getJ=async f=>{try{const r=await fetch(f+"?v="+Date.now());return r.ok?await r.json():null}catch(e){return null}};
+const isPreview=location.search.includes("preview=1");
+const getJ=async f=>{if(isPreview){try{const p=localStorage.getItem("um_preview_"+f);if(p)return JSON.parse(p)}catch(e){}}try{const r=await fetch(f+"?v="+Date.now());return r.ok?await r.json():null}catch(e){return null}};
 function drawChips(){$("chips").innerHTML="";$("chips").style.display=CATS.length>1?"":"none";CATS.filter(c=>c!==ALL).forEach(c=>{const b=document.createElement("button");b.className="chip";b.textContent=c;b.setAttribute("aria-pressed",c===cat);b.onclick=()=>{cat=(cat===c?ALL:c);drawChips();render();showTab("n")};$("chips").appendChild(b)})}
 function render(){
   const list=NEWS.filter(n=>(cat===ALL||n.c===cat)&&(!onlySaved||saved.has(n.id))&&(n.h+n.s+n.b).includes(query));
@@ -538,10 +539,10 @@ function drawPoll(){
   const tg=document.createElement("span");tg.className="tag";tg.textContent="🗳 இன்றைய வாக்கெடுப்பு";
   const q=document.createElement("h3");q.textContent=POLL.q;c.append(tg,q);
   if(!mine){
-    opts.forEach(o=>{const b=document.createElement("button");b.className="popt";b.textContent=o.t;b.onclick=async()=>{
-      b.disabled=true;
-      try{const r=await fetch("/api/vote",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({poll:POLL.id,choice:o.t})});if(!r.ok)throw 0}catch(e){b.disabled=false;pn.textContent="வாக்கு பதிவாகவில்லை. இணைய இணைப்பைச் சரிபார்த்து மீண்டும் முயலவும்.";return}
-      try{localStorage.setItem(key,o.t)}catch(e){}drawPoll()};c.appendChild(b)});
+    opts.forEach(o=>{const b=document.createElement("button");b.className="popt";b.textContent=o.t;b.onclick=()=>{
+      o.v=(Number(o.v)||0)+1;
+      try{localStorage.setItem(key,o.t)}catch(e){}
+      drawPoll()};c.appendChild(b)});
     var pn=document.createElement("div");pn.className="pnote";pn.textContent="ஒரு சாதனத்தில் ஒரு வாக்கு.";c.appendChild(pn);
   }else{
     const tot=opts.reduce((s,o)=>s+(Number(o.v)||0),0);
