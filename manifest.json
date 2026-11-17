@@ -1,8 +1,8 @@
 {
  "name": "உண்மை முகம்",
  "short_name": "உண்மை முகம்",
- "start_url": "./",
- "scope": "./",
+ "start_url": "/",
+ "scope": "/",
  "display": "standalone",
  "background_color": "#0b1f4d",
  "theme_color": "#0b1f4d",

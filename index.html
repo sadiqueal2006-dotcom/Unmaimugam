@@ -1,1 +1,588 @@
-<!DOCTYPE html><html lang="ta"><head><meta charset="utf-8"><meta http-equiv="refresh" content="0; url=../admin.html"><title>அட்மின்</title></head><body><a href="../admin.html">அட்மின் பக்கத்துக்குச் செல்ல இங்கே தொடவும்</a><script>location.replace("../admin.html")</script></body></html>
+<!DOCTYPE html>
+<html lang="ta" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>உண்மை முகம் – கோவை செய்திகள்</title>
+<meta name="description" content="உண்மை முகம் – செய்தி, சிந்தனை, சமூக நலம்">
+<meta name="theme-color" content="#0b1f4d">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" type="image/png" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="உண்மை முகம்">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Tamil:wght@400;600&family=Noto+Serif+Tamil:wght@600;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f2f6f7;--surface:#fff;--ink:#14262b;--muted:#5d7176;--line:#d5e0e3;--brand:#0b1f4d;--accent:#d71920;--fs:17px;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1a1d;--surface:#16262a;--ink:#e6eef0;--muted:#93a8ad;--line:#26393e;--brand:#8fb0ff}}
+:root[data-theme="dark"]{--bg:#0e1a1d;--surface:#16262a;--ink:#e6eef0;--muted:#93a8ad;--line:#26393e;--brand:#8fb0ff}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans Tamil",system-ui,sans-serif;line-height:1.7}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+header{background:var(--surface);border-bottom:1px solid var(--line);position:sticky;top:env(safe-area-inset-top,0px);z-index:5}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--surface);z-index:10}
+.bar{max-width:1000px;margin:auto;padding:10px 16px;display:flex;align-items:center;gap:10px;justify-content:space-between}
+.logo{font-family:"Noto Serif Tamil",serif;font-weight:800;font-size:1.5rem;color:var(--brand);margin:0;line-height:1.3}
+.date{font-size:.8rem;color:var(--muted)}
+.tools{display:flex;gap:6px}
+.ic{border:1px solid var(--line);background:none;border-radius:8px;min-width:40px;height:40px}
+.chips{max-width:1000px;margin:auto;padding:0 16px 10px;display:flex;gap:8px;overflow-x:auto}
+.chip{flex:none;border:1px solid var(--line);background:none;border-radius:999px;padding:4px 14px;font-size:.9rem}
+.chip[aria-pressed="true"]{background:var(--brand);border-color:var(--brand);color:var(--surface)}
+main{max-width:1000px;margin:auto;padding:16px}
+.search{width:100%;padding:10px 14px;border:1px solid var(--line);border-radius:10px;background:var(--surface);color:var(--ink);font:inherit;margin-bottom:16px}
+.lead{background:var(--brand);color:#fff;border-radius:14px;padding:22px;text-align:left;width:100%;border:0;display:block;margin-bottom:18px}
+:root[data-theme="dark"] .lead{color:#0b1f4d}
+.lead h2{font-family:"Noto Serif Tamil",serif;font-size:1.55rem;line-height:1.45;margin:6px 0 8px}
+.lead p{margin:0;opacity:.9}
+.tag{font-size:.8rem;font-weight:600;color:var(--accent)}
+.lead .tag{color:#ff9aa0}
+.grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(280px,1fr))}
+.card{background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:10px;padding:14px 16px;text-align:left}
+.card h3{font-family:"Noto Serif Tamil",serif;font-size:1.05rem;line-height:1.5;margin:4px 0}
+.card p{margin:0;color:var(--muted);font-size:.9rem}
+.meta{display:flex;justify-content:space-between;align-items:center;margin-top:8px;font-size:.78rem;color:var(--muted)}
+.empty{color:var(--muted);text-align:center;padding:40px 0}
+dialog{width:min(680px,100%);max-height:92vh;border:0;border-radius:16px;padding:0;background:var(--surface);color:var(--ink)}
+dialog::backdrop{background:rgba(0,0,0,.55)}
+.art{padding:20px 22px 28px}
+.art h2{font-family:"Noto Serif Tamil",serif;font-size:1.5rem;line-height:1.5;margin:6px 0}
+.art .body{font-size:var(--fs);max-width:62ch}
+.arttools{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+footer{text-align:center;color:var(--muted);font-size:.8rem;padding:24px 16px 40px}
+.brand{flex:1;min-width:0}
+.banner{display:block;width:100%;max-width:560px;height:auto;background:#fff;border-radius:8px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.brand .date{margin-top:4px}
+.brand{display:flex;align-items:center;gap:12px}
+.emb{width:52px;height:53px;border-radius:50%;object-fit:cover;border:2px solid var(--accent);background:#fff;flex:none}
+.name{min-width:0}
+.logo{font-family:"Noto Serif Tamil",serif;font-weight:800;font-size:clamp(1.5rem,6vw,2.2rem);line-height:1.2;color:var(--ink);letter-spacing:-.01em}
+.logo b{color:var(--accent);font-weight:800}
+.wm{display:inline-block;text-align:center}
+.logo{margin:0}
+.tagline{display:flex;align-items:center;gap:8px;font-size:.82rem;font-weight:600;color:var(--muted);margin-top:2px;line-height:1.4;white-space:nowrap}
+.tagline::before,.tagline::after{content:"";flex:1;height:2px;background:var(--accent)}
+.brand .date{margin-top:2px}
+header{border-bottom:3px double var(--brand)}
+.form{display:grid;gap:10px}
+.form label{display:grid;gap:4px;font-size:.85rem;color:var(--muted)}
+.form input,.form textarea{font:inherit;padding:9px 12px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink)}
+.pub{background:var(--accent);color:#fff;border:0;border-radius:10px;padding:12px;font-weight:600}
+.arow{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:8px 0;border-bottom:1px solid var(--line);font-size:.9rem}
+.arow button{border:1px solid var(--line);background:none;border-radius:8px;padding:4px 10px;color:var(--accent)}
+.wa2{display:block;margin-top:20px;text-align:center;padding:12px;border-radius:10px;background:#1a9e4b;color:#fff;text-decoration:none;font-weight:600}
+.wa{display:inline-flex;align-items:center;padding:0 12px;text-decoration:none;color:#fff;background:#1a9e4b;border-color:#1a9e4b;font-size:.9rem}
+.pic{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:10px;display:block;margin-bottom:10px;background:var(--line)}
+.lead .pic{margin-bottom:12px}
+.tabs{display:flex;gap:8px;margin-bottom:14px}
+.tabs .chip{padding:6px 18px}
+.ed{display:flex;flex-direction:column;gap:6px}
+.ed h3{margin:0;font-family:"Noto Serif Tamil",serif;font-size:1.05rem}
+.ed .links{display:flex;gap:8px;margin-top:6px}
+.ed a{flex:1;text-align:center;padding:8px;border-radius:8px;border:1px solid var(--line);color:var(--ink);text-decoration:none;font-size:.9rem}
+.ed a.pri{background:var(--brand);color:var(--surface);border-color:var(--brand)}
+hr.sep{border:0;border-top:1px solid var(--line);margin:22px 0}
+.logo{white-space:nowrap}
+@media (max-width:600px){
+.bar{flex-direction:column;align-items:center;gap:8px;padding:10px 12px 8px}
+.brand{justify-content:center;width:100%}
+.name{text-align:center}
+.logo{font-size:clamp(1.6rem,8.5vw,2.1rem)}
+.tools{justify-content:center}
+.chips{padding-bottom:8px}
+}
+.tick{display:flex;align-items:center;background:var(--accent);color:#fff}
+.tick b{flex:none;padding:6px 14px;background:#7d0a10;font-size:.85rem}
+.trk{overflow:hidden;flex:1}
+.mv{display:inline-flex;gap:48px;white-space:nowrap;padding-left:100%;animation:mv 30s linear infinite}
+.mv:hover{animation-play-state:paused}
+.mv button{background:none;border:0;color:#fff;padding:6px 0;font-size:.92rem}
+@keyframes mv{to{transform:translateX(-100%)}}
+@media (prefers-reduced-motion:reduce){.trk{overflow-x:auto}.mv{animation:none;padding-left:12px}}
+.arow{flex-wrap:wrap}.arow span{flex:1;min-width:140px}
+.chk{display:flex!important;flex-direction:row!important;align-items:center;gap:8px!important;color:var(--ink)!important}
+.chk input{width:18px;height:18px}
+.soc{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:10px}
+.soc a{padding:6px 14px;border-radius:999px;background:var(--brand);color:var(--surface);text-decoration:none;font-size:.85rem}
+.fl{display:flex;gap:16px;justify-content:center;margin-bottom:8px}
+.lnk{background:none;border:0;color:var(--brand);text-decoration:underline;font-size:.85rem}
+.wsm{color:#fff;background:#1a9e4b;padding:2px 10px;border-radius:999px;text-decoration:none;font-size:.78rem}
+.card{cursor:pointer}
+.gate{position:fixed;inset:0;z-index:50;background:var(--bg);display:grid;place-items:center;padding:20px}
+.gate[hidden]{display:none}
+.gbox{width:min(360px,100%);text-align:center;display:grid;gap:12px}
+.gbox h2{font-family:"Noto Serif Tamil",serif;font-size:2rem;margin:0;color:var(--accent)}
+.gbox p{margin:0 0 6px;color:var(--muted)}
+.gadm{border:2px solid var(--brand);background:none;border-radius:10px;padding:12px;font-weight:600;color:var(--brand)}
+.mv span{padding:6px 0;font-size:.92rem}
+#date{font-variant-numeric:tabular-nums}
+.tr{display:flex;justify-content:space-between;gap:12px;padding:7px 8px;border-bottom:1px solid var(--line);font-size:.92rem}.tr.now{background:var(--accent);color:#fff;border-radius:8px}.tr span{color:inherit}
+/* ===== professional front page ===== */
+:root{--bg:#f3f4f7;--surface:#fff;--ink:#101828;--muted:#566072;--line:#e2e5ea;--bar:#0b1f4d;box-shadow:none}
+:root[data-theme="dark"]{--bg:#0d1417;--surface:#152024;--ink:#e8eef0;--muted:#97a8ad;--line:#243238;--bar:#0a1a40}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0d1417;--surface:#152024;--ink:#e8eef0;--muted:#97a8ad;--line:#243238;--bar:#0a1a40}}
+body{background:var(--bg)}
+header{background:var(--surface);border-bottom:0;box-shadow:0 2px 0 var(--accent)}
+.strip{background:var(--bar);color:#dfe6f7;font-size:.78rem}
+.strip>div{max-width:1100px;margin:auto;padding:5px 16px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.strip .slogan{color:#ffb3b7;letter-spacing:.03em}
+.bar{max-width:1100px;padding:8px 16px 8px}
+.logo{font-size:clamp(1.4rem,5vw,2.05rem);letter-spacing:-.015em}
+.emb{width:44px;height:45px}
+.tagline{font-size:.76rem;color:var(--muted)}
+.chips{max-width:none;margin:0;padding:0 max(12px,calc((100% - 1100px)/2 + 4px));background:var(--bar)}
+.chips .chip{border:0;border-radius:0;color:#e8eefc;padding:10px 14px;font-weight:600;font-size:.92rem;background:none;border-bottom:3px solid transparent}
+.chips .chip[aria-pressed="true"]{background:none;color:#fff;border-bottom-color:var(--accent)}
+.tick{position:relative}
+main{max-width:1100px;padding:18px 16px 8px}
+.tabs{border-bottom:1px solid var(--line);gap:4px;margin-bottom:16px}
+.tabs .chip{border:0;border-radius:8px 8px 0 0;padding:9px 18px;font-weight:600;color:var(--muted);background:none;border-bottom:3px solid transparent;margin-bottom:-1px}
+.tabs .chip[aria-pressed="true"]{color:var(--ink);background:none;border-bottom-color:var(--accent)}
+header{position:static;display:contents}
+.bar{background:var(--surface);box-shadow:0 0 0 100vmax var(--surface);clip-path:inset(0 -100vmax)}
+.chips{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;border-bottom:2px solid var(--accent)}
+.lead h2,.lead p,.card h3,.card p,.art h2,.art .body,.tr b,.tr span{overflow-wrap:anywhere;word-break:normal}
+.tr{align-items:flex-start}
+.tabs{display:flex;width:100%}
+#today .card{padding:14px 16px;display:block}
+#today .card h3{margin:0 0 8px;font-size:1.1rem}
+#today .tr{padding:8px 6px}
+#today .card>p{margin:10px 0 0;font-size:.82rem;line-height:1.6}
+.tabs .chip{flex:1 1 0;min-width:0;padding:8px 4px;text-align:center;white-space:normal;line-height:1.3;font-size:.9rem}
+@media (max-width:520px){.ei{display:none}}
+@media (max-width:420px){.tabs .chip{font-size:.8rem;padding:9px 2px}}
+.search{border-radius:999px;padding:10px 18px;margin-bottom:18px}
+.lead{display:flex;flex-direction:column;padding:0;overflow:hidden;background:var(--surface);color:var(--ink);border:1px solid var(--line);border-top:4px solid var(--accent);border-radius:14px;margin-bottom:22px;text-align:left;box-shadow:0 4px 18px rgba(16,24,40,.06)}
+:root[data-theme="dark"] .lead{color:var(--ink)}
+.lead .pic{border-radius:0;margin:0;aspect-ratio:16/9}
+.lt{padding:16px 20px 20px}
+.lt .tag,.ct .tag{color:var(--accent);font-weight:700;letter-spacing:.02em}
+.lead h2{font-size:clamp(1.35rem,4.6vw,2rem);color:var(--ink);margin:6px 0 8px;line-height:1.45}
+.lead p{color:var(--muted);opacity:1;font-size:1rem;margin:0}
+.by{display:block;margin-top:10px;font-size:.8rem;color:var(--muted)}
+@media (min-width:760px){.lead:has(.pic){flex-direction:row}.lead:has(.pic) .pic{width:55%;aspect-ratio:auto;min-height:300px;object-fit:cover}.lead:has(.pic) .lt{display:flex;flex-direction:column;justify-content:center;padding:26px 28px}}
+.sec{font-family:"Noto Serif Tamil",serif;font-size:1.25rem;margin:4px 0 12px;padding-left:12px;border-left:5px solid var(--accent);line-height:1.3}
+.grid{gap:16px;grid-template-columns:repeat(auto-fill,minmax(270px,1fr))}
+.card{padding:0;overflow:hidden;border:1px solid var(--line);border-left:1px solid var(--line);border-radius:12px;background:var(--surface);transition:box-shadow .15s,transform .15s}
+.card:hover{box-shadow:0 8px 22px rgba(16,24,40,.1);transform:translateY(-2px)}
+.card .pic{border-radius:0;margin:0}
+.ct{padding:12px 16px 14px}
+.card h3{font-size:1.08rem;margin:4px 0 6px;color:var(--ink)}
+.card.ed{padding:14px 16px}
+.meta{border-top:1px solid var(--line);padding-top:8px;margin-top:10px}
+.tr{border-bottom-color:var(--line)}
+footer{background:var(--bar);color:#c3cde6;margin-top:34px;padding:28px 16px 40px}
+footer .lnk{color:#fff;padding:4px 2px}
+.fl{flex-wrap:wrap;justify-content:center;gap:6px 18px;max-width:560px;margin:0 auto 12px}
+footer{padding-bottom:calc(40px + env(safe-area-inset-bottom,0px));text-align:center}
+.soc{margin-bottom:14px}
+.soc a{background:var(--accent);color:#fff}
+.empty{color:var(--muted)}
+.card{display:flex;flex-direction:column}
+.ct{flex:1;display:flex;flex-direction:column}
+.ct p{margin-bottom:6px}
+.meta{margin-top:auto}
+@media (max-width:560px){.strip .slogan{display:none}.strip>div{padding:5px 12px}}
+.pollc{background:var(--surface);border:1px solid var(--line);border-left:5px solid var(--accent);border-radius:12px;padding:14px 16px;margin:0 0 22px}
+.pollc h3{margin:0 0 4px;font-family:"Noto Serif Tamil",serif;font-size:1.1rem;line-height:1.5}
+.pollc .tag{color:var(--accent);font-weight:700}
+.popt{display:block;width:100%;text-align:left;padding:10px 12px;margin-top:8px;border:1px solid var(--line);border-radius:10px;background:var(--bg);font:inherit;color:var(--ink)}
+.popt:hover{border-color:var(--accent)}
+.pbar{position:relative;margin-top:8px;border-radius:8px;overflow:hidden;background:var(--bg);border:1px solid var(--line)}
+.pbar i{position:absolute;inset:0 auto 0 0;background:rgba(215,25,32,.2)}
+.pbar span{position:relative;display:flex;justify-content:space-between;gap:10px;padding:9px 12px}
+.pbar.me{border-color:var(--accent)}
+.pnote{font-size:.8rem;color:var(--muted);margin-top:10px}
+.adtop{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-bottom:14px}
+.adchips{display:flex;gap:8px;flex-wrap:wrap}
+.adchips button{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:5px 14px;font:inherit;font-size:.88rem}
+.adchips button[aria-pressed="true"]{background:var(--bar);border-color:var(--bar);color:#fff}
+.adbtn{width:auto!important;margin:0!important;padding:9px 16px!important}
+.adc{display:block!important;padding:14px 16px!important}
+.adc .tag{color:var(--accent);font-weight:700}
+.adc .at{margin:8px 0;white-space:pre-wrap;overflow-wrap:anywhere}
+.adc .am{font-size:.8rem;color:var(--muted)}
+.adact{display:flex;gap:8px;margin-top:10px}
+.adact a{flex:1;text-align:center;padding:8px;border-radius:8px;border:1px solid var(--line);color:var(--ink);text-decoration:none;font-size:.9rem}
+.adact a.wa3{background:#1a9e4b;border-color:#1a9e4b;color:#fff}
+.form select{font:inherit;padding:9px 12px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink)}
+.pub{background:var(--accent);color:#fff;border:0;border-radius:10px;font-weight:600}
+/* ===== app style v2 ===== */
+:root{--bg:#f4f5f8;--surface:#fff;--ink:#14171f;--muted:#667085;--line:#e2e5ea;--brand:#e11d28;--accent:#e11d28;--bar:#0b0c10}
+:root[data-theme="light"]{--bg:#f4f5f8;--surface:#fff;--ink:#14171f;--muted:#667085;--line:#e2e5ea;--brand:#e11d28;--accent:#e11d28;--bar:#0b0c10}
+:root[data-theme="dark"]{--bg:#121317;--surface:#1a1c22;--ink:#f3f4f7;--muted:#9aa1ae;--line:#2b2e36;--brand:#f0363f;--accent:#e11d28;--bar:#0b0c10}
+body{background:var(--bg);color:var(--ink)}
+body::before{background:var(--bg)}
+.strip{background:var(--bar);color:#aab0bd}
+.strip .slogan{color:#ff8a90}
+.bar{max-width:1100px;margin:0 auto;display:flex;flex-direction:row;align-items:center;justify-content:space-between;gap:10px;padding:10px 16px;background:var(--bg);box-shadow:0 0 0 100vmax var(--bg);clip-path:inset(0 -100vmax)}
+.brand{display:flex;align-items:center;gap:10px;min-width:0;flex:1;justify-content:flex-start;width:auto}
+.name{text-align:left;min-width:0}
+.wm{display:block;text-align:left}
+.logo{font-size:clamp(1.15rem,4.6vw,1.6rem);white-space:nowrap;margin:0;color:var(--ink);letter-spacing:-.01em}
+.logo b{color:var(--accent)}
+.emb{width:40px;height:41px;border-radius:50%;border:2px solid var(--accent);background:#fff}
+.tagline{display:block;font-size:.7rem;color:var(--muted);margin:0;padding:0;border:0;white-space:nowrap}
+.tagline::before,.tagline::after{display:none}
+.tools{display:flex;gap:8px;flex:none;justify-content:flex-end}
+.tools .ic{width:42px;height:42px;min-width:42px;border-radius:50%;border:1px solid var(--line);background:none;padding:0;display:grid;place-items:center;font-size:1rem;color:var(--ink)}
+@media (max-width:600px){.bar{flex-direction:row;align-items:center;padding:10px 12px}.brand{justify-content:flex-start;width:auto}.name{text-align:left}.tools{justify-content:flex-end}.logo{font-size:clamp(1.1rem,5vw,1.4rem)}.tagline{font-size:.64rem}.tools .ic{width:38px;height:38px;min-width:38px}}
+.chips{background:var(--bg);border-bottom:1px solid var(--line);display:flex;gap:8px;overflow-x:auto;padding:8px max(12px,calc((100% - 1100px)/2 + 4px))}
+.chips .chip{flex:none;border:1px solid var(--line);border-radius:999px;color:var(--ink);background:none;padding:5px 16px;font-weight:400;font-size:.9rem;border-bottom:1px solid var(--line)}
+.chips .chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink);border-bottom-color:var(--ink)}
+.tabs{display:flex;justify-content:space-between;gap:6px;padding:6px 0 14px;border-bottom:1px solid var(--line);margin-bottom:14px;width:100%}
+.tab{flex:1 1 0;min-width:0;background:none;border:0;display:grid;justify-items:center;align-content:start;gap:6px;font-size:.78rem;line-height:1.3;color:var(--muted);padding:0;text-align:center}
+.tab .c{width:56px;height:56px;border-radius:50%;border:2.5px solid #a50f18;display:grid;place-items:center;color:var(--ink)}
+.tab .c svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.tab .l{min-height:2.6em;overflow-wrap:anywhere}
+.tab[aria-pressed="true"]{color:var(--ink);font-weight:600}
+.tab[aria-pressed="true"] .c{background:linear-gradient(145deg,#f0363f,#b0121b);border-color:transparent;color:#fff}
+.pg{font-family:"Noto Serif Tamil",serif;font-size:1.9rem;margin:2px 0 14px;line-height:1.3}
+.search{display:none}
+.search.on{display:block}
+.sec{display:none}
+.grid{grid-template-columns:1fr;gap:14px}
+@media (min-width:820px){.grid{grid-template-columns:1fr 1fr}}
+.card{flex-direction:row;align-items:center;gap:14px;padding:12px;border-radius:26px;background:var(--surface);border:1px solid var(--line)}
+.card .pic{width:104px;height:104px;border-radius:18px;margin:0;flex:none;aspect-ratio:auto;object-fit:cover}
+.ct{padding:0;min-width:0;flex:1}
+.card h3{font-size:1.08rem;line-height:1.5}
+.card.ed,.card.adc{display:block}
+.lead{border-radius:26px;border:1px solid var(--line);border-top:1px solid var(--line);box-shadow:none;background:var(--surface);color:var(--ink);margin-bottom:14px}
+.lead .pic{border-radius:0}
+.lead h2{font-size:clamp(1.3rem,5vw,1.8rem)}
+.tag,.lt .tag,.ct .tag{color:var(--accent)}
+footer{background:var(--bar)}
+/* header wrap fix */
+.bar{flex-wrap:wrap;row-gap:8px}
+.brand{flex:1 1 auto;min-width:max-content}
+.tools{margin-left:auto}
+.logo{font-size:clamp(1.05rem,4.4vw,1.5rem)}
+@media (max-width:600px){.logo{font-size:clamp(1.05rem,4.4vw,1.4rem)}.tools .ic{width:38px;height:38px;min-width:38px}.tools{gap:6px}}
+.tab .l{overflow-wrap:normal;word-break:normal;font-size:.72rem;letter-spacing:-.01em;min-height:2.6em}
+.tab{overflow:visible}
+.tabs{gap:2px}
+/* banner ad slot */
+.adbox{max-width:1100px;margin:10px auto 6px;padding:0 16px}
+.adslot{position:relative;border-radius:22px;overflow:hidden;border:1px solid var(--line);background:var(--surface);aspect-ratio:16/7;min-height:120px}
+.adslot .sl{position:absolute;inset:0;opacity:0;transition:opacity .5s;display:block;color:#fff;pointer-events:none}
+.adslot .sl.on{opacity:1;pointer-events:auto}
+.adslot img{width:100%;height:100%;object-fit:cover;display:block}
+.adslot .cap{position:absolute;left:0;right:0;bottom:0;padding:24px 14px 10px;background:linear-gradient(transparent,rgba(0,0,0,.68));font-weight:600;font-size:.95rem}
+.adslot .lbl{position:absolute;left:10px;top:10px;background:rgba(0,0,0,.55);color:#fff;font-size:.68rem;padding:2px 8px;border-radius:6px;z-index:2}
+.adslot .dots{position:absolute;right:12px;bottom:10px;display:flex;gap:5px;z-index:2}
+.adslot .dots i{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.5)}
+.adslot .dots i.on{background:#fff}
+.adph{display:grid;place-items:center;align-content:center;text-align:center;height:100%;padding:12px;background:linear-gradient(135deg,#1f2330,#2d1519);color:#fff;gap:8px}
+.adph b{font-size:1.15rem}
+.adph span{font-size:.82rem;opacity:.8}
+.adph a{background:var(--accent);color:#fff;border-radius:999px;padding:8px 18px;font-weight:600;text-decoration:none;font-size:.9rem}
+@media (prefers-reduced-motion:reduce){.adslot .sl{transition:none}}
+/* v3 fixes */
+.adslot.ph{aspect-ratio:auto;min-height:0}
+.adph{padding:14px 12px;gap:6px}
+.adph b{font-size:.95rem}
+.adph span{font-size:.74rem}
+.adph a{padding:6px 14px;font-size:.78rem}
+.tab .l{font-size:clamp(.62rem,2.6vw,.72rem)}
+@media (max-width:600px){.emb{width:36px;height:37px}.logo{font-size:clamp(1rem,4.2vw,1.3rem)}.bar{row-gap:6px}}
+.anav{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0 12px}
+.anav button{border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:999px;padding:4px 12px;font:inherit;font-size:.8rem}
+.cta{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:.75rem;color:var(--muted);padding:2px 2px 6px}
+.cta.solo{border:1px solid var(--line);border-radius:14px;background:var(--surface);padding:8px 12px}
+.cta a{flex:none;background:#1a9e4b;color:#fff;border-radius:999px;padding:2px 10px;font-size:.68rem;line-height:1.5;font-weight:600;text-decoration:none}
+.cta{line-height:1.4}
+.adslot.ph{aspect-ratio:16/7;min-height:120px;background:linear-gradient(135deg,#1f2330,#2d1519)}
+.ctabar{position:absolute;left:0;right:0;top:0;z-index:3;display:flex;align-items:center;justify-content:space-between;gap:8px;padding:5px 8px 5px 12px;background:rgba(0,0,0,.55);color:#fff;font-size:.7rem;line-height:1.4}
+.ctabar a{flex:none;background:#1a9e4b;color:#fff;border-radius:999px;padding:2px 10px;font-size:.66rem;line-height:1.5;font-weight:600;text-decoration:none}
+.adslot .ex{display:grid;place-items:center;align-content:center;padding-top:26px;text-align:center;background:linear-gradient(135deg,#1f2330,#3a1a20);color:#fff;pointer-events:none}
+.adslot .ex b{display:block;font-family:"Noto Serif Tamil",serif;font-size:clamp(1.5rem,7vw,2.2rem);line-height:1.4}
+.adslot .ex small{display:block;opacity:.8;font-size:.8rem}
+</style>
+</head>
+<body>
+<div id="roleGate" style="position:fixed;inset:0;z-index:9999;background:#0b1f4d;color:white;display:flex;align-items:center;justify-content:center;padding:24px;text-align:center">
+ <div style="max-width:360px;width:100%"><h1 style="font-size:2rem">உண்மை முகம்</h1><p>உண்மையின் குரல்</p>
+ <button id="readerRole" style="display:block;width:100%;padding:15px;margin:18px 0;border:0;border-radius:12px;background:#ffffff;color:#0b1f4d;font:inherit;font-weight:700;cursor:pointer">வாசகர் பகுதி</button>
+ <button id="adminRole" style="display:block;width:100%;padding:15px;border:1px solid white;background:transparent;color:#ffffff;border-radius:12px;font:inherit;font-weight:600;cursor:pointer">அட்மின் பகுதி</button></div></div>
+<script>
+(()=>{const g=document.getElementById('roleGate');document.getElementById('readerRole').onclick=()=>{g.remove();sessionStorage.setItem('um_role','reader')};document.getElementById('adminRole').onclick=()=>location.href='admin.html';if(sessionStorage.getItem('um_role')==='reader'||location.search.includes('preview=1'))g.remove()})();
+</script>
+
+<header>
+  <div class="strip"><div><span id="date"></span><span class="slogan">கோவை • செய்தி • சிந்தனை • சமூக நலம்</span></div></div>
+  <div class="bar">
+    <div class="brand"><img class="emb" alt="" src="icons/emblem.jpg"><div class="name"><div class="wm"><h1 class="logo"><span>உண்மை</span> <b>முகம்</b></h1><div class="tagline">உண்மையின் குரல்</div></div></div></div>
+    <div class="tools">
+      <button class="ic" id="sb" aria-label="தேடு">🔍</button>
+      <button class="ic" id="saved" aria-pressed="false" title="சேமித்தவை" aria-label="சேமித்தவை">🔖</button>
+      <button class="ic" id="theme" title="இருள் / ஒளி" aria-label="தீம் மாற்று">🌓</button>
+    </div>
+  </div>
+  <div class="adbox" id="adbox"></div>
+  <nav class="chips" id="chips" aria-label="பிரிவுகள்"></nav>
+</header>
+<div class="tick" id="tick" hidden><b>முக்கிய செய்தி</b><div class="trk"><div class="mv" id="mv"></div></div></div>
+<main>
+  <div class="tabs">
+    <button class="tab" id="tN" aria-pressed="true"><span class="c"><svg viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z"/><path d="M9 12h7M9 16h7M9 8h3"/></svg></span><span class="l">செய்திகள்</span></button>
+    <button class="tab" id="tE" aria-pressed="false"><span class="c"><svg viewBox="0 0 24 24"><path d="M4 5h13v14H6a2 2 0 0 1-2-2z"/><path d="M17 9h3v8a2 2 0 0 1-2 2"/><path d="M7 9h7M7 13h7"/></svg></span><span class="l">இ-பேப்பர்</span></button>
+    <button class="tab" id="tT" aria-pressed="false"><span class="c"><svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4"/></svg></span><span class="l">இன்றைய நாள்</span></button>
+    <button class="tab" id="tA" aria-pressed="false"><span class="c"><svg viewBox="0 0 24 24"><path d="M4 10v4h3l7 4V6L7 10z"/><path d="M17 9a4 4 0 0 1 0 6"/></svg></span><span class="l">விளம்பரம்</span></button>
+  </div>
+  <h2 class="pg" id="pgT">செய்திகள்</h2>
+  <div id="nview"><input class="search" id="q" type="search" placeholder="செய்திகளைத் தேடுங்கள்…" aria-label="தேடல்">
+  <div id="lead"></div>
+  <div id="poll"></div>
+  <h2 class="sec" id="secH">மேலும் செய்திகள்</h2>
+  <div class="grid" id="grid"></div>
+  <div class="empty" id="empty" hidden>பொருந்தும் செய்திகள் இல்லை.</div></div>
+  <div id="eview" hidden><div class="grid" id="egrid"></div><div class="empty" id="eempty" hidden>இ-பேப்பர் பதிப்புகள் இன்னும் வெளியிடப்படவில்லை.</div></div>
+<div id="aview" hidden>
+  <div class="adtop"><div id="adchips" class="adchips"></div><button class="pub adbtn" id="adNew">+ விளம்பரம் கொடுக்க</button></div>
+  <div class="grid" id="adgrid"></div><div class="empty" id="adempty" hidden>இப்போது விளம்பரங்கள் இல்லை.</div>
+</div>
+<div id="tview" hidden><div id="today"></div></div>
+</main>
+<footer><div class="soc" id="soc"></div><div class="fl"><button class="lnk" id="bAbout">எங்களைப் பற்றி</button><button class="lnk" id="bSend">செய்தி அனுப்புங்கள்</button><button class="lnk" data-lg="g">புகார்</button><button class="lnk" data-lg="p">தனியுரிமை</button><button class="lnk" data-lg="m">விதிமுறைகள்</button></div><div>© உண்மை முகம் – உண்மையின் குரல்</div></footer>
+
+<dialog id="dlg"><div class="art">
+  <div class="arttools">
+    <button class="ic" id="close">✕ மூடு</button>
+    <button class="ic" id="sm" aria-label="எழுத்தைச் சிறிதாக்கு">அ−</button>
+    <button class="ic" id="lg" aria-label="எழுத்தைப் பெரிதாக்கு">அ+</button>
+    <button class="ic" id="save">🔖 சேமி</button>
+    <button class="ic" id="share">பகிர்</button>
+    <a class="ic wa" id="wa" target="_blank" rel="noopener">WhatsApp</a>
+  </div>
+  <div id="aimg"></div><div class="tag" id="at"></div><h2 id="ah"></h2><div class="date" id="am"></div>
+  <div class="body" id="ab"></div>
+  <a class="wa2" id="wa2" target="_blank" rel="noopener">WhatsApp-இல் பகிர்க</a>
+</div></dialog>
+
+<dialog id="adlg"><div class="art"><div class="arttools"><button class="ic" id="adClose">✕ மூடு</button></div><h2>விளம்பரம் கொடுக்க</h2>
+<div class="form"><label>வகை<select id="ad_c"></select></label><label>உங்கள் பெயர்<input id="ad_n" maxlength="60"></label><label>தொடர்பு எண்<input id="ad_p" inputmode="tel" maxlength="15"></label><label>விளம்பர வாசகம்<textarea id="ad_t" rows="5" maxlength="400"></textarea></label>
+<a class="wa2" id="ad_go" target="_blank" rel="noopener">WhatsApp-இல் அனுப்பு</a><div class="date" id="ad_note"></div></div></div></dialog>
+<dialog id="lgl"><div class="art"><div class="arttools"><button class="ic" id="lgClose">✕ மூடு</button></div><h2 id="lgT"></h2><div class="body" id="lgB" style="white-space:pre-wrap"></div></div></dialog>
+<dialog id="abt"><div class="art"><div class="arttools"><button class="ic" id="abClose">✕ மூடு</button></div><h2>உண்மை முகம் – உண்மையின் குரல்</h2><div class="body" id="abText" style="white-space:pre-wrap"></div><div id="abContact" class="body" style="margin-top:14px"></div></div></dialog>
+<dialog id="snd"><div class="art"><div class="arttools"><button class="ic" id="sdClose">✕ மூடு</button></div><h2>உங்கள் பகுதிச் செய்தியை அனுப்புங்கள்</h2>
+<div class="form"><label>உங்கள் பெயர்<input id="sn" maxlength="60"></label><label>ஊர் / பகுதி<input id="sp" maxlength="60"></label><label>செய்தி<textarea id="sm2" rows="6" maxlength="800"></textarea></label>
+<a class="wa2" id="sgo" target="_blank" rel="noopener">WhatsApp-இல் அனுப்பு</a><div class="date" id="snote"></div></div></div></dialog>
+
+<script>
+const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const ago=t=>{const m=Math.round((Date.now()-t)/60000);if(m<1)return"இப்போது";if(m<60)return m+" நிமிடம் முன்";const h=Math.round(m/60);if(h<24)return h+" மணி நேரம் முன்";return shortD(t)};
+const shortD=t=>new Date(t).toLocaleDateString("ta-IN",{day:"numeric",month:"short"});
+const longD=t=>new Date(t).toLocaleString("ta-IN",{dateStyle:"medium",timeStyle:"short"});
+const PRESET=["கோவை","காந்திபுரம்","ஆர்.எஸ்.புரம்","உக்கடம்","பீளமேடு","சிங்காநல்லூர்","சரவணம்பட்டி","வடவள்ளி","கணபதி","துடியலூர்","விளங்குறிச்சி","சூலூர்","போக்குவரத்து","காவல்","கல்வி","விளையாட்டு","வணிகம்","வேலைவாய்ப்பு","தமிழ்நாடு","இந்தியா"];
+const rank=c=>{const i=PRESET.indexOf(c);return i<0?999:i};
+const bSrc=b=>imgOk(b.img)?"img/"+b.img:"";
+let lastH="";
+function openFromHash(){const m=location.hash.match(/^#n-([\w-]+)$/);if(!m||lastH===location.hash)return;const n=NEWS.find(x=>String(x.id)===m[1]);if(n){lastH=location.hash;if($("dlg").open)$("dlg").close();open(n)}}
+window.addEventListener("hashchange",()=>{lastH="";openFromHash()});
+const $=id=>document.getElementById(id);
+const imgOk=f=>/^\/[a-zA-Z0-9_./%-]+\.(jpe?g|png|webp)$/.test(f||"")||/^[\w.-]+\.(jpe?g|png|webp)$/i.test(f||"");
+const pdfOk=f=>/^\/[a-zA-Z0-9_./%-]+\.pdf$/i.test(f||"")||/^[\w.-]+\.pdf$/i.test(f||"");
+const httpsOk=u=>/^https:\/\/[^\s"<>]+$/.test(u||"");
+const pic=n=>imgOk(n.img)?`<img class="pic" loading="lazy" alt="" src="${n.img.startsWith("/")?n.img:"img/"+n.img}">`:"";
+const BASE=location.origin+location.pathname;
+const wl=n=>"https://wa.me/?text="+encodeURIComponent("*உண்மை முகம்* – உண்மையின் குரல்\n\n"+n.h+"\n\n"+BASE+"#n-"+n.id);
+const ALL="அனைத்தும்";
+let NEWS=[],EDS=[],cfg={},CATS=[ALL],cat=ALL,query="",onlySaved=false,cur=null,fs=17,saved=new Set();
+try{saved=new Set(JSON.parse(localStorage.getItem("saved")||"[]"))}catch(e){}
+const tickClock=()=>{const d=new Date();$("date").textContent=d.toLocaleDateString("ta-IN",{weekday:"long",year:"numeric",month:"long",day:"numeric"})+" • "+d.toLocaleTimeString("ta-IN",{hour:"2-digit",minute:"2-digit",second:"2-digit",hour12:true})};
+tickClock();setInterval(tickClock,1000);
+const persist=()=>{try{localStorage.setItem("saved",JSON.stringify([...saved]))}catch(e){}};
+const isPreview=location.search.includes("preview=1");
+const getJ=async f=>{if(isPreview){try{const p=localStorage.getItem("um_preview_"+f);if(p)return JSON.parse(p)}catch(e){}}try{const r=await fetch(f+"?v="+Date.now());return r.ok?await r.json():null}catch(e){return null}};
+function drawChips(){$("chips").innerHTML="";$("chips").style.display=CATS.length>1?"":"none";CATS.filter(c=>c!==ALL).forEach(c=>{const b=document.createElement("button");b.className="chip";b.textContent=c;b.setAttribute("aria-pressed",c===cat);b.onclick=()=>{cat=(cat===c?ALL:c);drawChips();render();showTab("n")};$("chips").appendChild(b)})}
+function render(){
+  const list=NEWS.filter(n=>(cat===ALL||n.c===cat)&&(!onlySaved||saved.has(n.id))&&(n.h+n.s+n.b).includes(query));
+  $("empty").hidden=list.length>0;$("empty").textContent=NEWS.length?"பொருந்தும் செய்திகள் இல்லை.":"கோவை செய்திகள் விரைவில் இங்கே வெளியாகும்.";
+  const first=list.find(n=>n.top)||list[0],rest=list.filter(n=>n!==first);$("secH").hidden=!rest.length;
+  $("lead").innerHTML="";
+  if(first){const b=document.createElement("button");b.className="lead";b.innerHTML=`${pic(first)}<div class="lt"><span class="tag">${esc(first.c)}</span><h2>${esc(first.h)}</h2><p>${esc(first.s)}</p><span class="by">${esc(first.r?"நிருபர்: "+first.r+" • ":"")}${first.ts?esc(ago(first.ts)):"வாசிப்பு: "+esc(first.t)}</span></div>`;b.onclick=()=>open(first);$("lead").appendChild(b)}
+  $("grid").innerHTML="";
+  rest.forEach(n=>{const b=document.createElement("div");b.className="card";b.tabIndex=0;b.setAttribute("role","button");b.onkeydown=e=>{if(e.key==="Enter")open(n)};
+    b.innerHTML=`${pic(n)}<div class="ct"><span class="tag">${esc(n.c)}</span><h3>${esc(n.h)}</h3><p>${esc(n.s)}</p><div class="meta"><span>${n.ts?esc(ago(n.ts)):"வாசிப்பு: "+esc(n.t)}</span><span>${saved.has(n.id)?"🔖 ":""}<a class="wsm" target="_blank" rel="noopener" href="${wl(n)}">WhatsApp</a></span></div></div>`;
+    b.querySelector(".wsm").onclick=e=>e.stopPropagation();b.onclick=()=>open(n);$("grid").appendChild(b)});
+}
+function open(n){cur=n;$("aimg").innerHTML=pic(n);$("at").textContent=n.c;$("ah").textContent=n.h;$("am").textContent=(n.r?"நிருபர்: "+n.r+" • ":"")+(n.ts?longD(n.ts)+" • ":"")+"வாசிப்பு: "+n.t;$("ab").textContent=n.b;$("ab").style.fontSize=fs+"px";$("save").textContent=saved.has(n.id)?"🔖 சேமிக்கப்பட்டது":"🔖 சேமி";$("wa").href=wl(n);$("wa2").href=wl(n);$("dlg").showModal()}
+let TICK=[];
+function drawTicker(){
+  const mv=$("mv");mv.innerHTML="";
+  const items=[...TICK.map(x=>({tx:x.t})),...NEWS.filter(n=>n.brk).map(n=>({tx:n.h,n}))];
+  $("tick").hidden=!items.length;if(!items.length)return;
+  let ch=0;
+  items.forEach(it=>{ch+=it.tx.length;const el=document.createElement(it.n?"button":"span");el.textContent="● "+it.tx;if(it.n)el.onclick=()=>open(it.n);mv.appendChild(el)});
+  mv.style.animationDuration=Math.max(18,Math.round(ch*.3))+"s";
+}
+const fmtD=d=>{try{return new Date(d+"T00:00:00").toLocaleDateString("ta-IN",{weekday:"long",year:"numeric",month:"long",day:"numeric"})}catch(e){return d}};
+function drawEds(){
+  const g=$("egrid");g.innerHTML="";const L=EDS.filter(e=>pdfOk(e.file));$("eempty").hidden=L.length>0;
+  L.forEach(e=>{const c=document.createElement("div");c.className="card ed";
+    const t=document.createElement("span");t.className="tag";t.textContent=fmtD(e.d);
+    const n=document.createElement("h3");n.textContent="📄 "+(e.n||"இ-பேப்பர்");
+    const l=document.createElement("div");l.className="links";
+    const a=document.createElement("a");a.className="pri";a.href=String(e.file).startsWith("/")?e.file:"epaper/"+e.file;a.target="_blank";a.rel="noopener";a.textContent="படிக்க";
+    const b=document.createElement("a");b.href=String(e.file).startsWith("/")?e.file:"epaper/"+e.file;b.download=e.file;b.textContent="பதிவிறக்கு";
+    l.append(a,b);c.append(t,n,l);g.appendChild(c)});
+}
+function drawFooter(){
+  const s=$("soc");s.innerHTML="";
+  [["ch","WhatsApp சேனல்"],["fb","Facebook"],["yt","YouTube"],["ig","Instagram"]].forEach(([k,l])=>{if(httpsOk(cfg[k])){const a=document.createElement("a");a.href=cfg[k];a.target="_blank";a.rel="noopener";a.textContent=l;s.appendChild(a)}});
+}
+const waNum=()=>String(cfg.wa||"").replace(/\D/g,"");
+function updSend(){
+  const msg="*உண்மை முகம் – வாசகர் செய்தி*\nபெயர்: "+$("sn").value+"\nஊர்: "+$("sp").value+"\n\n"+$("sm2").value,n=waNum();
+  if(n){$("sgo").href="https://wa.me/"+n+"?text="+encodeURIComponent(msg);$("sgo").hidden=false;$("snote").textContent="பொத்தானை அழுத்தினால் WhatsApp திறக்கும்; அங்கே அனுப்பு என்பதை அழுத்துங்கள்."}
+  else if(cfg.em){$("sgo").href="mailto:"+cfg.em+"?subject="+encodeURIComponent("வாசகர் செய்தி")+"&body="+encodeURIComponent(msg);$("sgo").textContent="மின்னஞ்சலில் அனுப்பு";$("sgo").hidden=false}
+  else{$("sgo").hidden=true;$("snote").textContent="அனுப்பும் எண் இன்னும் சேர்க்கப்படவில்லை."}
+}
+["sn","sp","sm2"].forEach(i=>$(i).oninput=updSend);
+$("bSend").onclick=()=>{updSend();$("snd").showModal()};$("sdClose").onclick=()=>$("snd").close();
+$("bAbout").onclick=()=>{$("abText").textContent=cfg.about||"உண்மையைச் சொல்வதே எங்கள் நோக்கம்.";const c=$("abContact");c.innerHTML="";
+  if(waNum()){const p=document.createElement("div");p.textContent="WhatsApp: +"+waNum();c.appendChild(p)}
+  if(cfg.em){const p=document.createElement("div");p.textContent="மின்னஞ்சல்: "+cfg.em;c.appendChild(p)}
+  $("abt").showModal()};
+$("abClose").onclick=()=>$("abt").close();
+const LEGAL={
+g:["புகார் / குறைதீர்ப்பு",()=>"எங்கள் செய்தியில் தவறு, அவதூறு, பதிப்புரிமை மீறல் அல்லது தனிநபர் தகவல் தொடர்பான குறை இருந்தால் எங்களுக்குத் தெரிவியுங்கள்.\n\nதெரிவிக்கும்போது: செய்தியின் தலைப்பு, என்ன தவறு, சரியான தகவல் அல்லது ஆதாரம், உங்கள் பெயர் மற்றும் தொடர்பு எண் ஆகியவற்றைக் குறிப்பிடவும்.\n\nபுகாரைப் பெற்றதும் ஆசிரியர் பரிசீலித்து, தவறு உறுதியானால் செய்தியைத் திருத்துவோம் அல்லது நீக்குவோம். எடுத்த நடவடிக்கையை உங்களுக்குத் தெரிவிப்போம்.\n\nதொடர்புக்கு: ஆசிரியர், உண்மை முகம்"+contactLines()],
+p:["தனியுரிமைக் கொள்கை",()=>"இந்தத் தளத்தில் நீங்கள் பதிவு செய்யவோ உள்நுழையவோ தேவையில்லை. உங்கள் பெயர், எண் போன்ற விவரங்களை நாங்கள் தானாகச் சேகரிப்பதில்லை.\n\n• சேமித்த செய்திகள், இருள்/ஒளி தேர்வு ஆகியவை உங்கள் சாதனத்தில் மட்டும் சேமிக்கப்படும்.\n• \"செய்தி அனுப்புங்கள்\" மூலம் நீங்கள் எழுதும் பெயர், ஊர், செய்தி ஆகியவை நீங்களே அனுப்பும் WhatsApp அல்லது மின்னஞ்சல் வழியாக எங்களுக்கு வரும். அவை செய்தியைப் பரிசீலிக்க மட்டுமே பயன்படுத்தப்படும்; உங்கள் அனுமதியின்றி வேறு நோக்கத்துக்கு அல்லது மற்றவருக்குக் கொடுக்கப்படாது.\n• எழுத்துருக்கள், WhatsApp போன்ற வெளிச் சேவைகளின் சொந்த விதிகள் அவற்றுக்குப் பொருந்தும்.\n\nநீங்கள் அனுப்பிய தகவலை நீக்கக் கேட்டால் எங்களால் இயன்ற அளவு நீக்குவோம்."+contactLines()],
+m:["பயன்பாட்டு விதிமுறைகள்",()=>"• இந்தத் தளத்தின் செய்திகள் பொதுத் தகவலுக்காக மட்டுமே. முக்கிய முடிவுகளுக்கு (மருத்துவம், சட்டம், நிதி, மத நேரங்கள்) அதிகாரப்பூர்வ மூலத்தைச் சரிபார்க்கவும்.\n• \"உண்மை முகம்\" உள்ளடக்கம், படங்கள் எங்களுக்கே உரியவை. மூலத்தைக் குறிப்பிட்டு இணைப்புடன் பகிரலாம்; அனுமதியின்றி முழுவதுமாக நகலெடுத்து வெளியிடக் கூடாது.\n• வாசகர்கள் அனுப்பும் செய்தி உண்மையானது, உங்கள் சொந்தம் அல்லது அனுமதி உள்ளது என்று நீங்கள் உறுதியளிக்கிறீர்கள். செய்தியைத் திருத்த, வெளியிடாமல் விட ஆசிரியருக்கு உரிமை உண்டு.\n• இன்றைய நாள் பகுதியின் நேரங்கள் கணக்கிடப்பட்ட தோராய நேரங்கள்.\n• இந்த விதிமுறைகளை மாற்றும் உரிமை எங்களுக்கு உண்டு."]
+};
+function contactLines(){let s="";if(cfg.wa)s+="\nWhatsApp: +"+String(cfg.wa).replace(/\D/g,"");if(cfg.em)s+="\nமின்னஞ்சல்: "+cfg.em;return s}
+document.querySelectorAll("[data-lg]").forEach(b=>b.onclick=()=>{const x=LEGAL[b.dataset.lg];$("lgT").textContent=x[0];$("lgB").textContent=x[1]();$("lgl").showModal()});
+$("lgClose").onclick=()=>$("lgl").close();
+
+$("close").onclick=()=>{$("dlg").close();render()};
+$("dlg").addEventListener("click",e=>{if(e.target===$("dlg")){$("dlg").close();render()}});
+$("save").onclick=()=>{saved.has(cur.id)?saved.delete(cur.id):saved.add(cur.id);persist();open(cur)};
+$("sm").onclick=()=>{fs=Math.max(14,fs-2);$("ab").style.fontSize=fs+"px"};
+$("lg").onclick=()=>{fs=Math.min(28,fs+2);$("ab").style.fontSize=fs+"px"};
+$("share").onclick=async()=>{const t="உண்மை முகம் – "+cur.h;try{if(navigator.share)await navigator.share({title:t,text:t,url:BASE+"#n-"+cur.id});else{await navigator.clipboard.writeText(t+"\n"+BASE+"#n-"+cur.id);$("share").textContent="நகலெடுத்தது"}}catch(e){}};
+$("q").oninput=e=>{query=e.target.value.trim();render()};
+$("saved").onclick=()=>{onlySaved=!onlySaved;$("saved").setAttribute("aria-pressed",onlySaved);$("saved").style.background=onlySaved?"var(--accent)":"none";render();showTab("n")};
+$("theme").onclick=()=>{const r=document.documentElement;r.dataset.theme=r.dataset.theme==="dark"?"light":"dark";try{localStorage.setItem("theme",r.dataset.theme)}catch(e){}};
+try{const t=localStorage.getItem("theme");if(t)document.documentElement.dataset.theme=t}catch(e){}
+$("sb").onclick=()=>{showTab("n");const q=$("q");q.classList.toggle("on");if(q.classList.contains("on"))q.focus()};
+let TODAY={};
+const LAT=11.0168,LON=76.9558,TZ=5.5;
+const rad=x=>x*Math.PI/180,deg=x=>x*180/Math.PI,fix=(a,b)=>{a=a-b*Math.floor(a/b);return a<0?a+b:a};
+function jdn(y,m,d){if(m<=2){y--;m+=12}const A=Math.floor(y/100),B=2-A+Math.floor(A/4);return Math.floor(365.25*(y+4716))+Math.floor(30.6001*(m+1))+d+B-1524.5}
+function sunPos(J){const D=J-2451545,g=fix(357.529+0.98560028*D,360),q=fix(280.459+0.98564736*D,360),L=fix(q+1.915*Math.sin(rad(g))+0.02*Math.sin(rad(2*g)),360),e=23.439-3.6e-7*D;const RA=fix(deg(Math.atan2(Math.cos(rad(e))*Math.sin(rad(L)),Math.cos(rad(L))))/15,24);return{decl:deg(Math.asin(Math.sin(rad(e))*Math.sin(rad(L)))),eqt:q/15-RA}}
+function dayTimes(y,m,d){
+  const J=jdn(y,m,d)-LON/360,P=t=>sunPos(J+t/24),mid=t=>fix(12-P(t).eqt,24);
+  const ang=(a,t,ccw)=>{const dc=P(t).decl,x=(Math.sin(rad(a))-Math.sin(rad(dc))*Math.sin(rad(LAT)))/(Math.cos(rad(dc))*Math.cos(rad(LAT)));const h=deg(Math.acos(Math.max(-1,Math.min(1,x))))/15;return mid(t)+(ccw?-h:h)};
+  const asr=(f,t)=>{const dc=P(t).decl,a=deg(Math.atan(1/(f+Math.tan(rad(Math.abs(LAT-dc))))));return ang(a,t,false)};
+  const r={fajr:ang(-18,5,true),sunrise:ang(-0.833,6,true),dhuhr:mid(12)+1/60,asrS:asr(1,13),asrH:asr(2,13),sunset:ang(-0.833,18,false),isha:ang(-18,18,false)};
+  const off=TZ-LON/15;for(const k in r)r[k]+=off;return r;
+}
+function hindu(t,dow){const len=(t.sunset-t.sunrise)/8,part=n=>[t.sunrise+len*(n-1),t.sunrise+len*n];
+  return{rahu:part([8,2,7,5,6,4,3][dow]),yama:part([5,4,3,2,1,7,6][dow]),kuli:part([7,6,5,4,3,2,1][dow])}}
+const fmtH=h=>{const m=Math.round(fix(h,24)*60);let H=Math.floor(m/60)%24;const M=m%60,ap=H<12?"AM":"PM";H=H%12||12;return H+":"+String(M).padStart(2,"0")+" "+ap};
+const istNow=()=>{const n=new Date();return new Date(n.getTime()+n.getTimezoneOffset()*60000+TZ*3600000)};
+const todayKey=()=>{const i=istNow();return i.getFullYear()+"-"+String(i.getMonth()+1).padStart(2,"0")+"-"+String(i.getDate()).padStart(2,"0")};
+const HM=["முஹர்ரம்","ஸஃபர்","ரபீயுல் அவ்வல்","ரபீயுல் ஆகிர்","ஜமாதுல் அவ்வல்","ஜமாதுல் ஆகிர்","ரஜப்","ஷஃபான்","ரமலான்","ஷவ்வால்","துல்கஃதா","துல்ஹஜ்"];
+function hijriStr(y,m,d,after,off){try{const dt=new Date(Date.UTC(y,m-1,d+(after?1:0)+off,12));const p={};new Intl.DateTimeFormat("en-u-ca-islamic-umalqura",{day:"numeric",month:"numeric",year:"numeric",timeZone:"UTC"}).formatToParts(dt).forEach(x=>p[x.type]=x.value);if(!p.month||!p.day||!p.year)return null;return p.day+" "+HM[Number(p.month)-1]+" "+p.year+" ஹி"}catch(e){return null}}
+function renderToday(){
+  const i=istNow(),y=i.getFullYear(),m=i.getMonth()+1,d=i.getDate(),dow=i.getDay(),nowH=i.getHours()+i.getMinutes()/60;
+  const t=dayTimes(y,m,d),H=hindu(t,dow),key=todayKey(),DN=["ஞாயிற்றுக்கிழமை","திங்கட்கிழமை","செவ்வாய்க்கிழமை","புதன்கிழமை","வியாழக்கிழமை","வெள்ளிக்கிழமை","சனிக்கிழமை"];
+  const inR=p=>nowH>=p[0]&&nowH<p[1],rg=p=>fmtH(p[0])+" – "+fmtH(p[1]);
+  const box=$("today");box.innerHTML="";
+  const sec=(title,rows,note)=>{const c=document.createElement("div");c.className="card";c.style.marginBottom="12px";const h=document.createElement("h3");h.textContent=title;c.appendChild(h);
+    rows.forEach(([a,b,on,tel])=>{const r=document.createElement("div");r.className="tr"+(on?" now":"");const x=document.createElement("span");x.textContent=a;const z=document.createElement(tel?"a":"b");z.textContent=b;if(tel){z.href=tel;z.style.color="inherit";z.style.fontWeight="700"}r.append(x,z);c.appendChild(r)});
+    if(note){const n=document.createElement("p");n.style.marginTop="8px";n.textContent=note;c.appendChild(n)}box.appendChild(c)};
+  const rows=[["நாள்",DN[dow]+", "+d+"-"+m+"-"+y],["சூரிய உதயம்",fmtH(t.sunrise)],["சூரிய அஸ்தமனம்",fmtH(t.sunset)],["ராகு காலம்",rg(H.rahu),inR(H.rahu)],["எமகண்டம்",rg(H.yama),inR(H.yama)],["குளிகை",rg(H.kuli),inR(H.kuli)]];
+  if(TODAY&&TODAY.d===key&&TODAY.text)rows.push(["நல்ல நேரம் / பஞ்சாங்கம்",TODAY.text]);
+  sec("🕉 இன்றைய நாள் – இந்து நாட்காட்டி",rows,"ராகு காலம், எமகண்டம், குளிகை ஆகியவை சூரிய உதய – அஸ்தமன நேரத்தைக் கொண்டு கணக்கிடப்பட்டவை. நல்ல நேரம் இருந்தால் அதை ஆசிரியர் சேர்த்தது; முக்கிய நிகழ்வுகளுக்கு உங்கள் பஞ்சாங்கத்தைச் சரிபார்க்கவும்.");
+  const P=[["சுப்ஹ் (ஃபஜ்ர்)",t.fajr],["சூரிய உதயம் (சுப்ஹ் முடிவு)",t.sunrise],["லுஹர்",t.dhuhr],["அஸர் (ஷாஃபி)",t.asrS],["அஸர் (ஹனஃபி)",t.asrH],["மஃரிப்",t.sunset],["இஷா",t.isha]];
+  const nx=[["சுப்ஹ்",t.fajr],["லுஹர்",t.dhuhr],["அஸர் (ஷாஃபி)",t.asrS],["மஃரிப்",t.sunset],["இஷா",t.isha]].find(x=>x[1]>nowH);
+  const hj=hijriStr(y,m,d,nowH>=t.sunset,Number(cfg.ho)||0);
+  sec("🕌 தொழுகை நேரங்கள் – கோவை",[...(hj?[["ஹிஜ்ரி தேதி",hj]]:[]),...(nx?[["அடுத்த தொழுகை",nx[0]+" – "+fmtH(nx[1]),true]]:[["அடுத்த தொழுகை","நாளை சுப்ஹ்"]]),...P.map(x=>[x[0],fmtH(x[1])])],"கோவைக்காகக் கணக்கிடப்பட்ட தோராய நேரம் (ஃபஜ்ர், இஷா 18°). ஹிஜ்ரி தேதி சூரிய அஸ்தமனத்தில் மாறும்; இந்தியப் பிறை அறிவிப்புடன் ஒரு நாள் வேறுபட்டால் ஆசிரியர் அமைப்புகளில் சரிசெய்யலாம். உங்கள் பள்ளிவாசலின் அறிவிக்கப்பட்ட நேரத்தையே பின்பற்றவும்.");
+  sec("☎ அவசர எண்கள்",[["காவல்","100",0,"tel:100"],["தீயணைப்பு","101",0,"tel:101"],["ஆம்புலன்ஸ்","108",0,"tel:108"],["தேசிய அவசர உதவி","112",0,"tel:112"],["பெண்கள் உதவி","181",0,"tel:181"],["குழந்தைகள் உதவி","1098",0,"tel:1098"],["இணையக் குற்றம்","1930",0,"tel:1930"]],"எண்ணைத் தொட்டால் அழைப்பு தொடங்கும்.");
+}
+let ADS=[],POLL=null,adCat=ALL;
+const ACATS=["வேலைவாய்ப்பு","வாடகை / விற்பனை","திருமணம்","இரங்கல்","மற்றவை"];
+const phDigits=s=>{s=String(s||"").replace(/\D/g,"");return s.length===10?"91"+s:s};
+function drawAds(){
+  const today=todayKey(),L=ADS.filter(a=>!a.exp||a.exp>=today).sort((x,y)=>(y.ts||0)-(x.ts||0));
+  const cats=[ALL,...new Set(L.map(a=>a.c))];if(!cats.includes(adCat))adCat=ALL;
+  const ch=$("adchips");ch.innerHTML="";cats.forEach(c=>{const b=document.createElement("button");b.textContent=c;b.setAttribute("aria-pressed",c===adCat);b.onclick=()=>{adCat=c;drawAds()};ch.appendChild(b)});
+  const g=$("adgrid");g.innerHTML="";const F=L.filter(a=>adCat===ALL||a.c===adCat);$("adempty").hidden=F.length>0;
+  F.forEach(a=>{const c=document.createElement("div");c.className="card adc";
+    const t=document.createElement("span");t.className="tag";t.textContent=a.c;
+    const x=document.createElement("div");x.className="at";x.textContent=a.t;
+    const m=document.createElement("div");m.className="am";m.textContent=[a.loc,a.ts?shortD(a.ts):""].filter(Boolean).join(" • ");
+    c.append(t,x,m);const d=phDigits(a.ph);
+    if(d.length>=10){const r=document.createElement("div");r.className="adact";const k=document.createElement("a");k.href="tel:+"+d;k.textContent="📞 அழை";const w=document.createElement("a");w.className="wa3";w.href="https://wa.me/"+d;w.target="_blank";w.rel="noopener";w.textContent="WhatsApp";r.append(k,w);c.appendChild(r)}
+    g.appendChild(c)});
+}
+function updAd(){
+  const msg="*உண்மை முகம் – விளம்பரக் கோரிக்கை*\nவகை: "+$("ad_c").value+"\nபெயர்: "+$("ad_n").value+"\nதொடர்பு எண்: "+$("ad_p").value+"\n\n"+$("ad_t").value,n=waNum();
+  if(n){$("ad_go").href="https://wa.me/"+n+"?text="+encodeURIComponent(msg);$("ad_go").hidden=false;$("ad_note").textContent="பொத்தானை அழுத்தினால் WhatsApp திறக்கும்; அங்கே அனுப்பு என்பதை அழுத்துங்கள். கட்டண விவரங்களை ஆசிரியர் தெரிவிப்பார்."}
+  else{$("ad_go").hidden=true;$("ad_note").textContent="அனுப்பும் எண் இன்னும் சேர்க்கப்படவில்லை."}
+}
+$("ad_c").innerHTML=ACATS.map(c=>`<option>${c}</option>`).join("");
+["ad_c","ad_n","ad_p","ad_t"].forEach(i=>{$(i).oninput=updAd;$(i).onchange=updAd});
+$("adNew").onclick=()=>{updAd();$("adlg").showModal()};$("adClose").onclick=()=>$("adlg").close();
+function drawPoll(){
+  const box=$("poll");box.innerHTML="";
+  if(!POLL||!POLL.active||!POLL.q)return;
+  const opts=(POLL.opts||[]).filter(o=>o.t),key="pv_"+POLL.id;let mine=null;
+  try{mine=localStorage.getItem(key)}catch(e){}
+  const c=document.createElement("div");c.className="pollc";
+  const tg=document.createElement("span");tg.className="tag";tg.textContent="🗳 இன்றைய வாக்கெடுப்பு";
+  const q=document.createElement("h3");q.textContent=POLL.q;c.append(tg,q);
+  if(!mine){
+    opts.forEach(o=>{const b=document.createElement("button");b.className="popt";b.textContent=o.t;b.onclick=()=>{
+      o.v=(Number(o.v)||0)+1;
+      try{localStorage.setItem(key,o.t)}catch(e){}
+      drawPoll()};c.appendChild(b)});
+    var pn=document.createElement("div");pn.className="pnote";pn.textContent="ஒரு சாதனத்தில் ஒரு வாக்கு.";c.appendChild(pn);
+  }else{
+    const tot=opts.reduce((s,o)=>s+(Number(o.v)||0),0);
+    opts.forEach(o=>{const v=Number(o.v)||0,pc=tot?Math.round(v*100/tot):0;const r=document.createElement("div");r.className="pbar"+(o.t===mine?" me":"");const i=document.createElement("i");i.style.width=pc+"%";const s=document.createElement("span");const a=document.createElement("b");a.textContent=o.t+(o.t===mine?" ✔":"");const z=document.createElement("b");z.textContent=tot?pc+"%":"";s.append(a,z);r.append(i,s);c.appendChild(r)});
+    const pn=document.createElement("div");pn.className="pnote";pn.textContent=tot?"மொத்தம் "+tot+" வாக்குகள் (ஆசிரியர் புதுப்பித்த நிலவரம்)":"உங்கள் வாக்கிற்கு நன்றி. முடிவுகள் விரைவில் வெளியிடப்படும்.";c.appendChild(pn);
+  }
+  box.appendChild(c);
+}
+let BN=[],bnT=null;
+function drawBanner(){
+  const box=$("adbox");if(!box)return;box.innerHTML="";clearInterval(bnT);
+  const L=BN.filter(b=>bSrc(b)&&(!b.exp||b.exp>=todayKey()));
+  const slot=document.createElement("div");slot.className="adslot"+(L.length?"":" ph");
+  L.forEach((b,i)=>{const ok=httpsOk(b.url),el=document.createElement(ok?"a":"div");el.className="sl"+(i===0?" on":"");
+    if(ok){el.href=b.url;el.target="_blank";el.rel="noopener sponsored"}
+    const im=document.createElement("img");im.src=bSrc(b);im.alt=b.t||"விளம்பரம்";el.appendChild(im);
+    if(b.t){const c=document.createElement("div");c.className="cap";c.textContent=b.t;el.appendChild(c)}
+    slot.appendChild(el)});
+  if(!L.length){const ex=document.createElement("div");ex.className="sl on ex";const w=document.createElement("div");const b1=document.createElement("b");b1.innerHTML='உண்மை <span style="color:#ff4b52">முகம்</span>';const s1=document.createElement("small");s1.textContent="உண்மையின் குரல் • கோவை";w.append(b1,s1);ex.appendChild(w);slot.appendChild(ex)}
+  const bar=document.createElement("div");bar.className="ctabar";const t=document.createElement("span");t.textContent="முகப்புப் பக்கத்தில் விளம்பரம் செய்ய";bar.appendChild(t);
+  const n=waNum();if(n){const a=document.createElement("a");a.href="https://wa.me/"+n+"?text="+encodeURIComponent("உண்மை முகம் – முகப்புப் பக்கத்தில் விளம்பரம் செய்ய விரும்புகிறேன்.");a.target="_blank";a.rel="noopener";a.textContent="WhatsApp";bar.appendChild(a)}
+  slot.appendChild(bar);
+  if(L.length>1){const d=document.createElement("div");d.className="dots";L.forEach((_,i)=>{const x=document.createElement("i");if(i===0)x.className="on";d.appendChild(x)});slot.appendChild(d);
+    if(!(window.matchMedia&&matchMedia("(prefers-reduced-motion:reduce)").matches)){let k=0;bnT=setInterval(()=>{const s=slot.querySelectorAll(".sl"),ds=slot.querySelectorAll(".dots i");k=(k+1)%s.length;s.forEach((x,i)=>x.classList.toggle("on",i===k));ds.forEach((x,i)=>x.classList.toggle("on",i===k))},5000)}}
+  box.appendChild(slot);
+}
+function showTab(k){$("pgT").textContent=({n:"செய்திகள்",e:"இ-பேப்பர்",t:"இன்றைய நாள்",a:"விளம்பரங்கள்"})[k]||"";$("nview").hidden=k!=="n";$("eview").hidden=k!=="e";$("tview").hidden=k!=="t";$("aview").hidden=k!=="a";[["tN","n"],["tE","e"],["tT","t"],["tA","a"]].forEach(([i,x])=>$(i).setAttribute("aria-pressed",k===x));if(k==="t")renderToday();if(k==="a")drawAds()}
+$("tN").onclick=()=>showTab("n");$("tE").onclick=()=>showTab("e");$("tT").onclick=()=>showTab("t");$("tA").onclick=()=>showTab("a");
+
+(async()=>{
+  NEWS=((await getJ("news.json"))||[]).sort((a,b)=>(b.ts||0)-(a.ts||0));
+  EDS=((await getJ("editions.json"))||[]).sort((a,b)=>String(b.d).localeCompare(String(a.d)));
+  cfg=(await getJ("settings.json"))||{};
+  TODAY=(await getJ("today.json"))||{};
+  BN=(await getJ("banners.json"))||[];ADS=(await getJ("ads.json"))||[];POLL=await getJ("poll.json");
+  TICK=((await getJ("ticker.json"))||[]).sort((x,y)=>(y.ts||0)-(x.ts||0));
+  CATS=[ALL,...[...new Set(NEWS.map(n=>n.c))].sort((a,b)=>rank(a)-rank(b))];
+  drawChips();render();drawTicker();drawEds();drawFooter();drawAds();drawPoll();drawBanner();openFromHash();
+})();
+if("serviceWorker" in navigator)navigator.serviceWorker.register("sw.js").catch(()=>{});
+</script>
+</body>
+</html>
