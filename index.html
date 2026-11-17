@@ -231,37 +231,77 @@
     </div>
 
     <script>
-        fetch('news.json')
-            .then(res => res.json())
-            .then(data => {
-                if(data && data.length > 0) {
-                    const container = document.getElementById('news-container');
-                    container.innerHTML = '';
-                    data.forEach(item => {
-                        container.innerHTML += `
-                            <div class="news-card">
-                                ${item.image ? `<img src="${item.image}" class="news-img" alt="News Image">` : `<div class="news-img"><i class="fa-solid fa-image fa-2x"></i></div>`}
-                                <div class="news-content">
-                                    <div class="news-category">${item.category || 'செய்தி'}</div>
-                                    <h3 class="news-title">${item.title}</h3>
-                                    <p class="news-desc">${item.description || ''}</p>
-                                    <div class="news-meta">நிருபர்: ${item.reporter || 'Admin'} • ${item.time || ''}</div>
-                                </div>
-                            </div>
-                        `;
-                    });
-                }
-            })
-            .catch(err => console.log('Using default view'));
+        function loadNewsAndTicker() {
+            // Check localStorage first
+            let localNews = localStorage.getItem('um_news');
+            let localTicker = localStorage.getItem('um_ticker');
 
-        fetch('ticker.json')
-            .then(res => res.json())
-            .then(data => {
-                if(data && data.text) {
-                    document.getElementById('ticker-text').innerText = data.text;
+            if(localNews) {
+                try {
+                    const data = JSON.parse(localNews);
+                    renderNews(data);
+                } catch(e) {
+                    fetchNewsJson();
                 }
-            })
-            .catch(err => {});
+            } else {
+                fetchNewsJson();
+            }
+
+            if(localTicker) {
+                try {
+                    const tData = JSON.parse(localTicker);
+                    if(tData && tData.text) {
+                        document.getElementById('ticker-text').innerText = tData.text;
+                    }
+                } catch(e) {
+                    fetchTickerJson();
+                }
+            } else {
+                fetchTickerJson();
+            }
+        }
+
+        function fetchNewsJson() {
+            fetch('news.json')
+                .then(res => res.json())
+                .then(data => {
+                    if(data && data.length > 0) {
+                        renderNews(data);
+                    }
+                })
+                .catch(err => console.log('Using default view'));
+        }
+
+        function renderNews(data) {
+            const container = document.getElementById('news-container');
+            container.innerHTML = '';
+            data.forEach(item => {
+                container.innerHTML += `
+                    <div class="news-card">
+                        ${item.image ? `<img src="${item.image}" class="news-img" alt="News Image">` : `<div class="news-img"><i class="fa-solid fa-image fa-2x"></i></div>`}
+                        <div class="news-content">
+                            <div class="news-category">${item.category || 'செய்தி'}</div>
+                            <h3 class="news-title">${item.title}</h3>
+                            <p class="news-desc">${item.description || ''}</p>
+                            <div class="news-meta">நிருபர்: ${item.reporter || 'Admin'} • ${item.time || ''}</div>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function fetchTickerJson() {
+            fetch('ticker.json')
+                .then(res => res.json())
+                .then(data => {
+                    if(data && data.text) {
+                        document.getElementById('ticker-text').innerText = data.text;
+                    }
+                })
+                .catch(err => {});
+        }
+
+        loadNewsAndTicker();
     </script>
 </body>
 </html>
