@@ -82,6 +82,26 @@
             font-weight: bold;
             white-space: nowrap;
         }
+        .ticker-track {
+            flex: 1;
+            min-width: 0;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+        #ticker-text {
+            display: inline-block;
+            min-width: max-content;
+            padding-left: 100%;
+            animation: ticker-scroll 18s linear infinite;
+            will-change: transform;
+        }
+        @keyframes ticker-scroll {
+            from { transform: translateX(0); }
+            to { transform: translateX(-100%); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            #ticker-text { animation: none; padding-left: 0; }
+        }
         .menu-grid {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
@@ -185,7 +205,7 @@
 
     <div class="ticker-bar">
         <span class="ticker-title">முக்கிய செய்தி</span>
-        <div style="overflow: hidden; white-space: nowrap; width: 100%;">
+        <div class="ticker-track">
             <span id="ticker-text">உண்மை முகம் செய்தி தளத்திற்கு உங்களை வரவேற்கிறோம்.</span>
         </div>
     </div>
