@@ -60,12 +60,13 @@
             gap: 15px;
             font-size: 14px;
         }
-        .nav-icons i {
-            cursor: pointer;
-            padding: 8px;
-            background: #222;
-            border-radius: 50%;
+        .nav-icons button {
+            cursor: pointer; padding: 8px 10px; background: #222; color: #fff;
+            border: 0; border-radius: 50%; font-size: 14px;
         }
+        .search-panel { display:none; padding: 10px 15px; background:#1e1e1e; }
+        .search-panel input { width:100%; box-sizing:border-box; padding:11px; border-radius:7px; border:1px solid #555; background:#111; color:#fff; }
+        @media print { header .nav-icons, .menu-grid, .ticker-bar, .search-panel { display:none !important; } body { background:#fff !important; color:#000 !important; } .news-card { break-inside:avoid; border:1px solid #aaa; background:#fff !important; color:#000 !important; } .news-desc,.news-meta { color:#333 !important; } }
         .ticker-bar {
             background: var(--primary);
             color: white;
@@ -181,11 +182,11 @@
             </div>
         </div>
         <div class="nav-icons">
-            <i class="fa-solid fa-magnifying-glass"></i>
-            <i class="fa-solid fa-bolt"></i>
-            <i class="fa-solid fa-moon"></i>
+            <button type="button" id="search-toggle" aria-label="செய்தி தேடுக" title="தேடுக"><i class="fa-solid fa-magnifying-glass"></i></button>
+            <button type="button" id="print-page" aria-label="பிரிண்ட்" title="பிரிண்ட் எடு"><i class="fa-solid fa-print"></i></button>
         </div>
     </header>
+    <div class="search-panel" id="search-panel"><input type="search" id="news-search" placeholder="செய்திகளைத் தேடுங்கள்..." aria-label="செய்திகளைத் தேடுங்கள்"></div>
 
     <div class="ticker-bar">
         <span class="ticker-title">முக்கிய செய்தி</span>
@@ -276,10 +277,12 @@
                 .catch(err => console.log('Using default view'));
         }
 
-        function renderNews(data) {
+        let allNews = [];
+        function renderNews(data, keepOriginal = false) {
+            if (!keepOriginal) allNews = Array.isArray(data) ? data : [];
             const container = document.getElementById('news-container');
             container.innerHTML = '';
-            data.forEach(item => {
+            allNews.forEach(item => {
                 container.innerHTML += `
                     <div class="news-card">
                         ${item.image ? `<img src="${item.image}" class="news-img" alt="News Image">` : `<div class="news-img"><i class="fa-solid fa-image fa-2x"></i></div>`}
@@ -305,6 +308,19 @@
                 .catch(err => {});
         }
 
+        document.getElementById('search-toggle').addEventListener('click', () => {
+            const panel = document.getElementById('search-panel');
+            panel.style.display = panel.style.display === 'block' ? 'none' : 'block';
+            if (panel.style.display === 'block') document.getElementById('news-search').focus();
+            else { document.getElementById('news-search').value = ''; renderNews(allNews); }
+        });
+        document.getElementById('news-search').addEventListener('input', function () {
+            const q = this.value.trim().toLocaleLowerCase();
+            const filtered = allNews.filter(n => [n.title,n.category,n.description,n.reporter].join(' ').toLocaleLowerCase().includes(q));
+            renderNews(filtered, true);
+            if (!filtered.length) document.getElementById('news-container').innerHTML = '<p style="color:#aaa;text-align:center">தேடலுக்கு பொருத்தமான செய்திகள் இல்லை.</p>';
+        });
+        document.getElementById('print-page').addEventListener('click', () => window.print());
         loadNewsAndTicker();
         if ('serviceWorker' in navigator) window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js').catch(()=>{}));
     </script>
