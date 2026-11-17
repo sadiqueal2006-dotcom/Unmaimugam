@@ -172,11 +172,44 @@
             </div>
         </div>
 
+        <!-- Today information -->
+        <div class="card">
+            <h2><i class="fa-solid fa-calendar-days"></i> இன்றைய நாள் விவரங்கள்</h2>
+            <label>சிறப்பு நாள்</label><input id="today-special" placeholder="எ.கா. முக்கிய நாள் / திருநாள்">
+            <label>நல்ல நேரம்</label><input id="today-good" placeholder="நேரத்தை உள்ளிடவும்">
+            <label>ராகு காலம்</label><input id="today-rahu" placeholder="நேரத்தை உள்ளிடவும்">
+            <label>எமகண்டம்</label><input id="today-yama" placeholder="நேரத்தை உள்ளிடவும்">
+            <label>குறிப்புகள்</label><textarea id="today-notes" rows="2"></textarea>
+            <label>இன்றைய சிந்தனை</label><textarea id="today-thought" rows="2"></textarea>
+            <button onclick="saveToday()"><i class="fa-solid fa-floppy-disk"></i> இன்றைய நாள் சேமி</button>
+        </div>
+        <!-- Ads management -->
+        <div class="card">
+            <h2><i class="fa-solid fa-bullhorn"></i> புதிய விளம்பரம்</h2>
+            <label>விளம்பரத் தலைப்பு</label><input id="ad-title" placeholder="விளம்பரத் தலைப்பு">
+            <label>வகை</label><input id="ad-category" placeholder="வணிகம் / வேலை / சொத்து">
+            <label>விளம்பர விவரம்</label><textarea id="ad-description" rows="3"></textarea>
+            <label>வெளி இணைப்பு (விருப்பம்)</label><input id="ad-link" placeholder="https://...">
+            <button onclick="addAd()"><i class="fa-solid fa-plus"></i> விளம்பரம் சேர்</button>
+            <div id="manage-ads-list" style="margin-top:12px"></div>
+        </div>
+        <!-- E-Paper management -->
+        <div class="card">
+            <h2><i class="fa-regular fa-newspaper"></i> E-Paper பதிப்பு சேர்க்க</h2>
+            <label>பதிப்பு தலைப்பு</label><input id="ep-title" placeholder="உண்மை முகம் – இன்றைய பதிப்பு">
+            <label>தேதி (YYYY-MM-DD)</label><input id="ep-date" type="date">
+            <label>PDF பொது URL</label><input id="ep-url" type="url" placeholder="https://.../newspaper.pdf">
+            <label>சிறு விளக்கம்</label><textarea id="ep-description" rows="2"></textarea>
+            <button onclick="addEdition()"><i class="fa-solid fa-plus"></i> E-Paper சேர்க்க</button>
+            <div id="manage-editions-list" style="margin-top:12px"></div>
+            <p style="font-size:12px;color:#aaa">குறிப்பு: PDF-ஐ முதலில் இணையத்தில் public link ஆக பதிவேற்றி, அந்த URL-ஐ இங்கே சேர்க்கவும்.</p>
+        </div>
+
         <!-- Export Data -->
         <div class="card">
             <h2><i class="fa-solid fa-download"></i> தரவுகளை சேமிக்கவும் (Export Data)</h2>
-            <p style="font-size: 13px; color: var(--text-gray);">செய்திகள் மற்றும் அமைப்புகளை சேமிக்க கீழே உள்ள பட்டனை அழுத்தவும்:</p>
-            <button onclick="exportData()"><i class="fa-solid fa-file-arrow-down"></i> news.json மற்றும் ticker.json பதிவிறக்கம்</button>
+            <p style="font-size: 13px; color: var(--text-gray);">Admin-ல் சேமிப்பது இந்த browser-ல் மட்டும் உடனடியாகத் தெரியும். மற்ற பார்வையாளர்களுக்கும் காட்ட, கீழே JSON கோப்புகளைப் பதிவிறக்கி hosting-ல் உள்ள கோப்புகளை மாற்றி upload செய்ய வேண்டும்.</p>
+            <button onclick="exportData()"><i class="fa-solid fa-file-arrow-down"></i> அனைத்து JSON கோப்புகளையும் பதிவிறக்கம்</button>
             <button class="btn-secondary" onclick="window.location.href='index.html'"><i class="fa-solid fa-eye"></i> தளத்தை பார்க்க (View Site)</button>
         </div>
     </div>
@@ -185,6 +218,9 @@
         let newsData = [];
         let tickerData = { text: "உண்மை முகம் செய்தி தளத்திற்கு உங்களை வரவேற்கிறோம்." };
         let base64Image = "";
+        let todayData = {};
+        let adsData = [];
+        let editionsData = [];
 
         // Load initial data from localStorage or json
         window.onload = function() {
@@ -199,6 +235,7 @@
                 tickerData = JSON.parse(localStorage.getItem('um_ticker'));
                 document.getElementById('ticker-input').value = tickerData.text;
             }
+            loadExtraData();
             renderManageList();
         };
 
@@ -321,27 +358,24 @@
             });
         }
 
-        function exportData() {
-            // Download news.json
-            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(newsData, null, 2));
-            const downloadAnchor = document.createElement('a');
-            downloadAnchor.setAttribute("href", dataStr);
-            downloadAnchor.setAttribute("download", "news.json");
-            document.body.appendChild(downloadAnchor);
-            downloadAnchor.click();
-            downloadAnchor.remove();
+        async function loadExtraData() {
+            async function load(key, file, fallback) { try { const saved=localStorage.getItem(key); if(saved) return JSON.parse(saved); const r=await fetch(file); return await r.json(); } catch(e) { return fallback; } }
+            todayData=await load('um_today','today.json',{}); adsData=await load('um_ads','ads.json',[]); editionsData=await load('um_editions','editions.json',[]);
+            document.getElementById('today-special').value=todayData.special_day||''; document.getElementById('today-good').value=todayData.good_time||''; document.getElementById('today-rahu').value=todayData.rahukalam||''; document.getElementById('today-yama').value=todayData.yamagandam||''; document.getElementById('today-notes').value=todayData.notes||''; document.getElementById('today-thought').value=todayData.thought||'';
+            renderAds(); renderEditions();
+        }
+        function saveToday(){ todayData={special_day:document.getElementById('today-special').value,good_time:document.getElementById('today-good').value,rahukalam:document.getElementById('today-rahu').value,yamagandam:document.getElementById('today-yama').value,notes:document.getElementById('today-notes').value,thought:document.getElementById('today-thought').value}; localStorage.setItem('um_today',JSON.stringify(todayData)); alert('இன்றைய நாள் விவரங்கள் சேமிக்கப்பட்டன.'); }
+        function addAd(){ const title=document.getElementById('ad-title').value.trim(); if(!title){alert('விளம்பரத் தலைப்பை உள்ளிடவும்');return;} adsData.unshift({title,category:document.getElementById('ad-category').value,description:document.getElementById('ad-description').value,link:document.getElementById('ad-link').value}); localStorage.setItem('um_ads',JSON.stringify(adsData)); ['ad-title','ad-category','ad-description','ad-link'].forEach(id=>document.getElementById(id).value=''); renderAds(); }
+        function deleteAd(i){adsData.splice(i,1);localStorage.setItem('um_ads',JSON.stringify(adsData));renderAds();}
+        function renderAds(){const el=document.getElementById('manage-ads-list');el.innerHTML=adsData.length?adsData.map((a,i)=>`<div class="news-list-item"><span>${a.title}</span><button onclick="deleteAd(${i})">நீக்கு</button></div>`).join(''):'<p style="color:#888">விளம்பரங்கள் இல்லை.</p>';}
+        function addEdition(){const title=document.getElementById('ep-title').value.trim(),date=document.getElementById('ep-date').value,url=document.getElementById('ep-url').value.trim();if(!title||!date||!url){alert('தலைப்பு, தேதி, PDF URL ஆகியவற்றை நிரப்பவும்');return;}editionsData.unshift({title,date,pdf_url:url,description:document.getElementById('ep-description').value});localStorage.setItem('um_editions',JSON.stringify(editionsData));['ep-title','ep-date','ep-url','ep-description'].forEach(id=>document.getElementById(id).value='');renderEditions();}
+        function deleteEdition(i){editionsData.splice(i,1);localStorage.setItem('um_editions',JSON.stringify(editionsData));renderEditions();}
+        function renderEditions(){const el=document.getElementById('manage-editions-list');el.innerHTML=editionsData.length?editionsData.map((e,i)=>`<div class="news-list-item"><span>${e.date||''} – ${e.title||'E-Paper'}</span><button onclick="deleteEdition(${i})">நீக்கு</button></div>`).join(''):'<p style="color:#888">E-Paper பதிப்புகள் இல்லை.</p>';}
+        function downloadJson(filename,data){const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=filename;a.click();URL.revokeObjectURL(url);}
 
-            // Download ticker.json
-            setTimeout(() => {
-                const tickerStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(tickerData, null, 2));
-                const tickerAnchor = document.createElement('a');
-                tickerAnchor.setAttribute("href", tickerStr);
-                tickerAnchor.setAttribute("download", "ticker.json");
-                document.body.appendChild(tickerAnchor);
-                tickerAnchor.click();
-                tickerAnchor.remove();
-                alert('news.json மற்றும் ticker.json கோப்புகள் வெற்றிகரமாக பதிவிறக்கம் செய்யப்பட்டன!');
-            }, 500);
+        function exportData() {
+            downloadJson('news.json',newsData); downloadJson('ticker.json',tickerData); downloadJson('today.json',todayData); downloadJson('ads.json',adsData); downloadJson('editions.json',editionsData);
+            alert('5 JSON கோப்புகளும் பதிவிறக்கம் செய்யப்பட்டன. Hosting-ல் உள்ள அதே கோப்புகளை மாற்றி Upload செய்தால் பார்வையாளர்களுக்கும் புதுப்பிப்பு தெரியும்.');
         }
     </script>
 </body>
